@@ -11,15 +11,16 @@ if (process.env.NODE_ENV === "development") {
 
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+    if (process.platform !== "darwin") {
+        app.quit();
+    }
 });
 
 
 const installExtensions = async() => {
     if (process.env.NODE_ENV === "development") {
-        const installer = require("electron-devtools-installer"); // eslint-disable-line global-require
+        const installer =
+            require("electron-devtools-installer"); // eslint-disable-line global-require
         const extensions = [
             "REACT_DEVELOPER_TOOLS",
             "REDUX_DEVTOOLS"
@@ -27,8 +28,7 @@ const installExtensions = async() => {
         for (const name of extensions) {
             try {
                 await installer.default(installer[name]);
-            } catch (e) {
-            } // eslint-disable-line
+            } catch (e) {} // eslint-disable-line no-empty
         }
     }
 };

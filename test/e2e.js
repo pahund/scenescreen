@@ -32,7 +32,8 @@ describe("main window", function spec() {
         await this.driver.quit();
     });
 
-    const findCounter = () => this.driver.findElement(webdriver.By.className(counterStyles.counter));
+    const findCounter = () => this.driver.findElement(
+        webdriver.By.className(counterStyles.counter));
 
     const findButtons = () => this.driver.findElements(webdriver.By.className(counterStyles.btn));
 
@@ -42,7 +43,8 @@ describe("main window", function spec() {
     });
 
     it("should to Counter with click \"to Counter\" link", async() => {
-        const link = await this.driver.findElement(webdriver.By.css(`.${homeStyles.container} > a`));
+        const link = await this.driver.findElement(
+            webdriver.By.css(`.${homeStyles.container} > a`));
         link.click();
 
         const counter = await findCounter();

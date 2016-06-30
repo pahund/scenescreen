@@ -63,9 +63,9 @@ if (version) {
 function build(cfg) {
     return new Promise((resolve, reject) => {
         webpack(cfg, (err, stats) => {
-          if (err) {
-            return reject(err);
-          }
+            if (err) {
+                return reject(err);
+            }
             resolve(stats);
         });
     });
@@ -99,9 +99,9 @@ function startPack() {
 
 function pack(plat, arch, cb) {
     // there is no darwin ia32 electron
-  if (plat === "darwin" && arch === "ia32") {
-    return;
-  }
+    if (plat === "darwin" && arch === "ia32") {
+        return;
+    }
 
     const iconObj = {
         icon: DEFAULT_OPTS.icon + (() => {
@@ -129,9 +129,9 @@ function pack(plat, arch, cb) {
 
 function log(plat, arch) {
     return (err, filepath) => {
-      if (err) {
-        return console.error(err);
-      }
+        if (err) {
+            return console.error(err);
+        }
         console.log(`${plat}-${arch} finished!`);
     };
 }

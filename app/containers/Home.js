@@ -2,6 +2,7 @@ import Home from "../components/Home";
 import { compose, withHandlers } from "recompose";
 import { connect } from "react-redux";
 import sendMidi from "../actions/sendMidi";
+import selectScene from "../actions/selectScene";
 
 const enhance = compose(
     connect(
@@ -10,8 +11,10 @@ const enhance = compose(
         })
     ),
     withHandlers({
-        sceneTriggered: ({ dispatch, scenes }) => sceneIndex =>
-            dispatch(sendMidi(scenes[sceneIndex].messages))
+        sceneTriggered: ({ dispatch, scenes }) => sceneIndex => {
+            dispatch(selectScene(sceneIndex));
+            dispatch(sendMidi(scenes[sceneIndex].messages));
+        }
     })
 );
 

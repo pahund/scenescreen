@@ -1,17 +1,17 @@
 import Home from "../components/Home";
 import { compose, withHandlers } from "recompose";
 import { connect } from "react-redux";
+import sendMidi from "../actions/sendMidi";
 
 const enhance = compose(
     connect(
         state => ({
-            midiOutput: state.midiOutput,
             scenes: state.scenes
         })
     ),
     withHandlers({
-        sceneTriggered: ({ midiOutput, scenes }) => sceneIndex =>
-            scenes[sceneIndex].messages.forEach(message => midiOutput.send(message))
+        sceneTriggered: ({ dispatch, scenes }) => sceneIndex =>
+            dispatch(sendMidi(scenes[sceneIndex].messages))
     })
 );
 

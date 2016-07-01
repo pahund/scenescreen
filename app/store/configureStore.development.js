@@ -5,6 +5,7 @@ import { routerMiddleware } from "react-router-redux";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "../reducers";
 import sendMidi from "../sagas/sendMidi";
+import updateLayout from "../sagas/updateLayout";
 
 const logger = createLogger({
     level: "info",
@@ -22,6 +23,7 @@ const enhancer = compose(
 export default initialState => {
     const store = createStore(rootReducer, initialState, enhancer);
     sagaMiddleware.run(sendMidi, store.getState);
+    sagaMiddleware.run(updateLayout);
 
     if (module.hot) {
         module.hot.accept("../reducers", () =>

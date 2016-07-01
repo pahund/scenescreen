@@ -7,7 +7,8 @@ import selectScene from "../actions/selectScene";
 const enhance = compose(
     connect(
         state => ({
-            scenes: state.scenes
+            scenes: state.scenes,
+            layout: state.layout
         })
     ),
     withHandlers({

@@ -6,3 +6,5 @@
  */
 export const SEND_MIDI = "SEND_MIDI";
 export const SELECT_SCENE = "SELECT_SCENE";
+export const RESIZE = "RESIZE";
+export const UPDATE_LAYOUT = "UPDATE_LAYOUT";

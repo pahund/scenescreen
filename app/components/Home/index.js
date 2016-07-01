@@ -2,17 +2,15 @@ import React, { PropTypes } from "react";
 import styles from "./styles.css";
 import classnames from "classnames";
 
-const Home = ({ sceneTriggered, scenes }) => {
+const Home = ({ sceneTriggered, scenes, layout }) => {
     return (
         <div>
             <div className={styles.container}>
                 {scenes.map((scene, index) => (
                     <div className={classnames(
                             styles.scene,
-                            styles[`cols${calculateCols()}`],
-                            {
-                                [styles.selected]: scene.selected
-                            }
+                            styles[`cols${layout.columns}`],
+                            { [styles.selected]: scene.selected }
                          )}
                          style={{ backgroundColor: scene.bgColor, color: scene.color }}
                          key={`scene${index}`}
@@ -43,7 +41,10 @@ Home.propTypes = {
                 PropTypes.arrayOf(PropTypes.number)
             ).isRequired
         })
-    ).isRequired
+    ).isRequired,
+    layout: PropTypes.shape({
+        columns: PropTypes.number.isRequired
+    }).isRequired
 };
 
 export default Home;

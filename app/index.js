@@ -7,6 +7,8 @@ import { syncHistoryWithStore } from "react-router-redux";
 import routes from "./routes";
 import configureStore from "./store/configureStore";
 import ErrorMessage from "./components/ErrorMessage";
+import calculateLayoutColumns from "./utils/calculateLayoutColumns";
+import resize from "./actions/resize";
 import "./app.global.css";
 import controllerMessage, {
     CMB_ROTARY_1,
@@ -144,8 +146,13 @@ function showApp(midiOutput) {
                 bgColor: "#555555",
                 messages: []
             }
-        ]
+        ],
+        layout: {
+            columns: calculateLayoutColumns()
+        }
     });
+    const dispatch = store.dispatch;
+    window.onresize = () => dispatch(resize());
     const history = syncHistoryWithStore(hashHistory, store);
     render(
         <Provider store={store}>

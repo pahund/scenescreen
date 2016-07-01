@@ -7,7 +7,7 @@
     "node": true
   },
   "rules": {
-    "indent": [2, 4, {"SwitchCase": 2}],
+    "indent": [2, 4, {"SwitchCase": 1}],
     "quotes": [2, "double"],
     "consistent-return": 0,
     "comma-dangle": [2, "never"],

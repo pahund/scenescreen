@@ -71,7 +71,7 @@ app.on("ready", async() => {
         template = [{
             label: "Electron",
             submenu: [{
-                label: "About ElectronReact",
+                label: "About SceneScreen",
                 selector: "orderFrontStandardAboutPanel:"
             }, {
                 type: "separator"
@@ -81,7 +81,7 @@ app.on("ready", async() => {
             }, {
                 type: "separator"
             }, {
-                label: "Hide ElectronReact",
+                label: "Hide SceneScreen",
                 accelerator: "Command+H",
                 selector: "hide:"
             }, {

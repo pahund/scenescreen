@@ -44,3 +44,8 @@ npm run package-all
 ## License
 MIT © [Patrick Hund](https://github.com/pahund)
 
+## Acknowledgements
+
+Based on [Electron React Boilerplate](https://github.com/chentsulin/electron-react-boilerplate).
+
+MIT © [C. T. Lin](https://github.com/chentsulin)

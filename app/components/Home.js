@@ -16,9 +16,8 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         if (navigator.requestMIDIAccess) {
-            navigator.requestMIDIAccess({
-                sysex: false // this defaults to 'false' and we won't be covering sysex in this article.
-            }).then(this.onMIDISuccess.bind(this), this.onMIDIFailure);
+            navigator.requestMIDIAccess({ sysex: false })
+                .then(this.onMIDISuccess.bind(this), this.onMIDIFailure);
         } else {
             console.error("No MIDI support in your browser.");
         }

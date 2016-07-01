@@ -9,6 +9,10 @@ export default {
         }, {
             test: /\.json$/,
             loader: "json-loader"
+        },
+        {
+            test: /\.(eot|svg|ttf|woff|woff2)$/,
+            loader: "file?name=public/fonts/[name].[ext]"
         }]
     },
     output: {
@@ -17,7 +21,7 @@ export default {
         libraryTarget: "commonjs2"
     },
     resolve: {
-        extensions: ["", ".js", ".jsx", ".json"],
+        extensions: ["", ".js", ".jsx", ".json", ".woff2"],
         packageMains: ["webpack", "browser", "web", "browserify", ["jam", "main"], "main"]
     },
     plugins: [],

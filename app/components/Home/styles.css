@@ -29,6 +29,15 @@
     box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.5);
 }
 
+.disabled {
+    color: black;
+    background-color: #555555;
+}
+
+.disabled:hover {
+    box-shadow: none;
+}
+
 .scene > * {
     flex: 0 0 auto;
 }

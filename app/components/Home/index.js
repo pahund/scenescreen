@@ -1,23 +1,37 @@
 import React, { PropTypes } from "react";
 import styles from "./styles.css";
 import classnames from "classnames";
+import range from "../../utils/range";
 
 const Home = ({ sceneTriggered, scenes, layout }) => {
     return (
         <div>
             <div className={styles.container}>
-                {scenes.map((scene, index) => (
-                    <div className={classnames(
+                {range(0, 15).map(index => {
+                    const scene = scenes[index];
+                    const key = `scene${index}`;
+                    if (scene) {
+                        const className = classnames(
                             styles.scene,
                             styles[`cols${layout.columns}`],
                             { [styles.selected]: scene.selected }
-                         )}
-                         style={{ backgroundColor: scene.bgColor, color: scene.color }}
-                         key={`scene${index}`}
-                         onClick={() => sceneTriggered(index)}>
-                        {scene.name}
-                    </div>
-                ))}
+                        );
+                        return (
+                            <div className={className}
+                                 style={{ backgroundColor: scene.bgColor, color: scene.color }}
+                                 key={key}
+                                 onClick={() => sceneTriggered(index)}>
+                                {scene.name}
+                            </div>
+                        );
+                    }
+                    const className = classnames(
+                        styles.scene,
+                        styles[`cols${layout.columns}`],
+                        styles.disabled
+                    );
+                    return <div key={key} className={className} />;
+                })}
             </div>
         </div>
     );

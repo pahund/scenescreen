@@ -1,0 +1,21 @@
+.container {
+    position: absolute;
+    top: 30%;
+    left: 10px;
+    text-align: center;
+}
+
+.container h2 {
+    font-size: 5rem;
+}
+
+.container a {
+    font-size: 1.4rem;
+}
+
+.scene {
+    border-radius: 16px;
+    width: 120px;
+    height: 120px;
+    margin: 8px;
+}

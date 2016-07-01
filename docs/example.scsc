@@ -9,7 +9,7 @@
           "device": "combinator",
           "rotary1": 0,
           "rotary2": 30,
-          "rotary3": 20
+          "rotary3": 100
         },
         "2": {
           "device": "combinator",

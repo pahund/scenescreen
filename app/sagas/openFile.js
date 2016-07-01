@@ -9,29 +9,65 @@ import { put } from "redux-saga/effects";
 import { OPEN_FILE } from "../actions";
 import updateScenes from "../actions/updateScenes";
 import getCombinatorMessages from "../midi/getCombinatorMessages";
+import { ipcRenderer } from "electron";
 
 function *openFile({ data: { scenes } }) {
-    const populatedScenes = scenes.map(scene => {
-        const populatedScene = {
-            name: scene.name,
-            color: scene["text-color"],
-            bgColor: scene["background-color"]
-        };
-        const messages = [];
-        Object.keys(scene.channels).forEach(channelName => {
-            const channelNumber = parseInt(channelName, 10);
-            const channel = scene.channels[channelName];
-            switch (channel.device) {
-                case "combinator":
-                    messages.push(...getCombinatorMessages(channelNumber, channel));
-                    break;
-                default:
+    try {
+        const populatedScenes = scenes.map((scene, sceneIndex) => {
+            const populatedScene = {
+                name: scene.name || `Scene ${sceneIndex + 1}`,
+                color: scene["text-color"] || "white",
+                bgColor: scene["background-color"] || "darkgray"
+            };
+            const messages = [];
+            if (!scene.channels) {
+                throw new Error(`No channels specified for scene “${populatedScene.name}”`);
             }
+            Object.keys(scene.channels).forEach(channelName => {
+                const channelNumber = parseInt(channelName, 10);
+                if (isNaN(channelNumber) || channelNumber < 1 || channelNumber > 16) {
+                    throw new Error(
+                        `Illegal MIDI channel number “${channelName}” specified for ` +
+                        `scene “${populatedScene.name}”`
+                    );
+                }
+                const channel = scene.channels[channelName];
+                if (!channel.device) {
+                    throw new Error(
+                        `No device specified for channel ${channelNumber} in ` +
+                        `scene “${populatedScene.name}”`
+                    );
+                }
+                switch (channel.device) {
+                    case "combinator":
+                        try {
+                            messages.push(...getCombinatorMessages(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    default:
+                        throw new Error(
+                            `Unknown device “${channel.device}” specified ` +
+                            `for channel ${channelNumber} in scene “${populatedScene.name}”`
+                        );
+                }
+            });
+            populatedScene.messages = messages;
+            return populatedScene;
         });
-        populatedScene.messages = messages;
-        return populatedScene;
-    });
-    yield put(updateScenes(populatedScenes));
+        yield put(updateScenes(populatedScenes));
+    } catch (e) {
+        console.error("Error reading file", e);
+        console.log("scenes:", scenes);
+        ipcRenderer.send(
+            "error",
+            { message: `Error reading file${e.message ? ` – ${e.message}` : ""}` }
+        );
+    }
 }
 
 export default function *() {

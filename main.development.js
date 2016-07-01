@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, shell, dialog } from "electron";
+import { app, BrowserWindow, Menu, shell, dialog, ipcMain } from "electron";
 import fs from "fs";
 
 let menu;
@@ -51,7 +51,7 @@ app.on("ready", async() => {
     });
 
     mainWindow.on("closed", () => {
-        mainWindow = null;
+        app.quit();
     });
 
     if (process.env.NODE_ENV === "development") {
@@ -213,7 +213,8 @@ app.on("ready", async() => {
             label: "&File",
             submenu: [{
                 label: "&Open",
-                accelerator: "Ctrl+O"
+                accelerator: "Ctrl+O",
+                click: open
             }, {
                 label: "&Close",
                 accelerator: "Ctrl+W",
@@ -308,3 +309,7 @@ function open() {
     currentFilePath = files[0];
     mainWindow.webContents.send("file-open", data);
 }
+
+ipcMain.on("error", (event, data) => {
+    dialog.showErrorBox("SceneScreen Error", data.message);
+});

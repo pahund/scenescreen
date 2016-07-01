@@ -5,6 +5,7 @@ import rootReducer from "../reducers";
 import createSagaMiddleware from "redux-saga";
 import sendMidi from "../sagas/sendMidi";
 import updateLayout from "../sagas/updateLayout";
+import openFile from "../sagas/openFile";
 
 const router = routerMiddleware(hashHistory);
 const sagaMiddleware = createSagaMiddleware();
@@ -15,5 +16,6 @@ export default initialState => {
     const store = createStore(rootReducer, initialState, enhancer);
     sagaMiddleware.run(sendMidi, store.getState);
     sagaMiddleware.run(updateLayout);
+    sagaMiddleware.run(openFile);
     return store;
 };

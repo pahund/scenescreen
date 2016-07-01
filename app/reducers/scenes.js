@@ -4,7 +4,7 @@
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 01 Jul 2016
  */
-import { SELECT_SCENE } from "../actions";
+import { SELECT_SCENE, UPDATE_SCENES } from "../actions";
 
 export default (state = {}, action) => {
     switch (action.type) {
@@ -18,6 +18,8 @@ export default (state = {}, action) => {
                     selected: false
                 }
             );
+        case UPDATE_SCENES:
+            return action.scenes;
         default:
     }
     return state;

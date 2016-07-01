@@ -1,9 +1,10 @@
-import { app, BrowserWindow, Menu, shell } from "electron";
+import { app, BrowserWindow, Menu, shell, dialog } from "electron";
+import fs from "fs";
 
 let menu;
 let template;
 let mainWindow = null;
-
+let currentFilePath = null;
 
 if (process.env.NODE_ENV === "development") {
     require("electron-debug")(); // eslint-disable-line global-require
@@ -69,7 +70,7 @@ app.on("ready", async() => {
 
     if (process.platform === "darwin") {
         template = [{
-            label: "Electron",
+            label: "SceneScreen",
             submenu: [{
                 label: "About SceneScreen",
                 selector: "orderFrontStandardAboutPanel:"
@@ -99,6 +100,14 @@ app.on("ready", async() => {
                 click() {
                     app.quit();
                 }
+            }]
+        }, {
+            label: "File",
+            submenu: [{
+                label: "Open",
+                accelerator: "Command+O",
+                selector: "open:",
+                click: open
             }]
         }, {
             label: "Edit",
@@ -267,3 +276,35 @@ app.on("ready", async() => {
         mainWindow.setMenu(menu);
     }
 });
+
+function open() {
+    const options = {
+        title: "SceneScreen: Open",
+        properties: [
+            "openFile"
+        ],
+        filters: [
+            { name: "SceneScreen Files", extensions: ["scsc"] }
+        ]
+    };
+
+    const files = dialog.showOpenDialog(options);
+
+    if (!files) {
+        return;
+    }
+
+    let data;
+    try {
+        data = JSON.parse(fs.readFileSync(files[0], "utf8"));
+        if (!data.scenes) {
+            throw new Error("invalid file contents");
+        }
+    } catch (e) {
+        dialog.showErrorBox("SceneScreen Error", "Could not read the file you specified – are you sure it was created " +
+            "with SceneScreen?");
+        return;
+    }
+    currentFilePath = files[0];
+    mainWindow.webContents.send("file-open", data);
+}

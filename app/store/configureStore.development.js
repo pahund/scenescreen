@@ -6,6 +6,7 @@ import createSagaMiddleware from "redux-saga";
 import rootReducer from "../reducers";
 import sendMidi from "../sagas/sendMidi";
 import updateLayout from "../sagas/updateLayout";
+import openFile from "../sagas/openFile";
 
 const logger = createLogger({
     level: "info",
@@ -24,6 +25,7 @@ export default initialState => {
     const store = createStore(rootReducer, initialState, enhancer);
     sagaMiddleware.run(sendMidi, store.getState);
     sagaMiddleware.run(updateLayout);
+    sagaMiddleware.run(openFile);
 
     if (module.hot) {
         module.hot.accept("../reducers", () =>

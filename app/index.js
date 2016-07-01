@@ -53,7 +53,8 @@ function showApp(midiOutput) {
         scenes: [
             {
                 name: "Laut",
-                color: "lime",
+                color: "black",
+                bgColor: "lime",
                 messages: [
                     cmbRotary1Max,
                     cmbButton2On,
@@ -63,7 +64,8 @@ function showApp(midiOutput) {
             },
             {
                 name: "Leise",
-                color: "hotpink",
+                color: "white",
+                bgColor: "hotpink",
                 messages: [
                     cmbRotary1Min,
                     cmbButton2Off,
@@ -72,73 +74,73 @@ function showApp(midiOutput) {
                 ]
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             },
             {
-                name: "(disabled)",
-                color: "silver",
+                color: "black",
+                bgColor: "#555555",
                 messages: []
             }
         ]

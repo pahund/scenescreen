@@ -18,7 +18,6 @@ const appName = argv.name || argv.n || pkg.productName;
 const shouldUseAsar = argv.asar || argv.a || false;
 const shouldBuildAll = argv.all || false;
 
-
 const DEFAULT_OPTS = {
     dir: "./",
     name: appName,
@@ -122,7 +121,7 @@ function pack(plat, arch, cb) {
         "app-version": pkg.version || DEFAULT_OPTS.version,
         out: `release/${plat}-${arch}`
     });
-
+    console.log("OPTS: ", JSON.stringify(opts, null, 2));
     packager(opts, cb);
 }
 

@@ -1,0 +1,116 @@
+{
+  "scenes": [
+    {
+      "name": "Beat",
+      "text-color": "black",
+      "background-color": "silver",
+      "channels": {
+        "1": {
+          "device": "combinator",
+          "enabled": "off"
+        },
+        "2": {
+          "device": "combinator",
+          "enabled": "off"
+        },
+        "3": {
+          "device": "combinator",
+          "enabled": "on",
+          "rotary1": 63,
+          "rotary2": 63,
+          "rotary3": 63,
+          "rotary4": 63,
+          "button1": "off",
+          "button2": "off",
+          "button3": "off",
+          "button4": "off",
+          "mod-wheel": 0
+        }
+      }
+    },
+    {
+      "name": "Beat + Bass",
+      "text-color": "black",
+      "background-color": "silver",
+      "channels": {
+        "1": {
+          "device": "combinator",
+          "enabled": "off"
+        },
+        "2": {
+          "device": "combinator",
+          "enabled": "on",
+          "rotary1": 63,
+          "rotary2": 63,
+          "rotary3": 63,
+          "rotary4": 63,
+          "button1": "off",
+          "button2": "off",
+          "button3": "off",
+          "button4": "off",
+          "mod-wheel": 0
+        },
+        "3": {
+          "device": "combinator",
+          "enabled": "on",
+          "rotary1": 63,
+          "rotary2": 63,
+          "rotary3": 63,
+          "rotary4": 63,
+          "button1": "off",
+          "button2": "off",
+          "button3": "off",
+          "button4": "off",
+          "mod-wheel": 0
+        }
+      }
+    },
+    {
+      "name": "Beat + Bass + Clavi",
+      "text-color": "black",
+      "background-color": "silver",
+      "channels": {
+        "1": {
+          "device": "combinator",
+          "enabled": "on",
+          "rotary1": 63,
+          "rotary2": 63,
+          "rotary3": 63,
+          "rotary4": 63,
+          "button1": "off",
+          "button2": "off",
+          "button3": "off",
+          "button4": "off",
+          "mod-wheel": 0
+        },
+        "2": {
+          "device": "combinator",
+          "enabled": "on",
+          "rotary1": 63,
+          "rotary2": 63,
+          "rotary3": 63,
+          "rotary4": 63,
+          "button1": "off",
+          "button2": "off",
+          "button3": "off",
+          "button4": "off",
+          "mod-wheel": 0
+        },
+        "3": {
+          "device": "combinator",
+          "enabled": "on",
+          "rotary1": 63,
+          "rotary2": 63,
+          "rotary3": 63,
+          "rotary4": 63,
+          "button1": "off",
+          "button2": "off",
+          "button3": "off",
+          "button4": "off",
+          "mod-wheel": 0
+        }
+      }
+    }
+
+  ]
+}

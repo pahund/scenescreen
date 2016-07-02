@@ -1,4 +1,4 @@
-# SceneScreen
+![SceneScreen](./docs/images/scenescreen_256x256.png)
 
 Control your MIDI software through predefined scenes.
 

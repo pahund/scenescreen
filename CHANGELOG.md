@@ -1,3 +1,7 @@
-# 0.0.1
+# 0.1.0
 
-Initial version bases on [C. T. Lin](https://github.com/chentsulin/)'s [Electron React Boilerplate](https://github.com/chentsulin/electron-react-boilerplate).
+## Features
+
+* Scenes view with up to 16 scene fields that send MIDI controller messages on click
+* Supported programs: Propellerheads Reason combinator devices
+* Setup is done through editing scsc files by hand

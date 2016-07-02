@@ -51,5 +51,3 @@ function showApp(midiOutput) {
         document.getElementById("root")
     );
 }
-
-

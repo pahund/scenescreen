@@ -9,9 +9,9 @@
 
 export default (...args) => {
     const array = [];
-    let start,
-        end,
-        inc;
+    let start;
+    let end;
+    let inc;
     if (args[0] === undefined && args[1] === undefined && args[2] === undefined) {
         start = 0;
         end = 9;

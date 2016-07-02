@@ -4,19 +4,17 @@ import fs from "fs";
 let menu;
 let template;
 let mainWindow = null;
-let currentFilePath = null;
+// let currentFilePath = null;
 
 if (process.env.NODE_ENV === "development") {
     require("electron-debug")(); // eslint-disable-line global-require
 }
-
 
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
         app.quit();
     }
 });
-
 
 const installExtensions = async() => {
     if (process.env.NODE_ENV === "development") {
@@ -77,11 +75,6 @@ app.on("ready", async() => {
             }, {
                 type: "separator"
             }, {
-                label: "Services",
-                submenu: []
-            }, {
-                type: "separator"
-            }, {
                 label: "Hide SceneScreen",
                 accelerator: "Command+H",
                 selector: "hide:"
@@ -108,35 +101,6 @@ app.on("ready", async() => {
                 accelerator: "Command+O",
                 selector: "open:",
                 click: open
-            }]
-        }, {
-            label: "Edit",
-            submenu: [{
-                label: "Undo",
-                accelerator: "Command+Z",
-                selector: "undo:"
-            }, {
-                label: "Redo",
-                accelerator: "Shift+Command+Z",
-                selector: "redo:"
-            }, {
-                type: "separator"
-            }, {
-                label: "Cut",
-                accelerator: "Command+X",
-                selector: "cut:"
-            }, {
-                label: "Copy",
-                accelerator: "Command+C",
-                selector: "copy:"
-            }, {
-                label: "Paste",
-                accelerator: "Command+V",
-                selector: "paste:"
-            }, {
-                label: "Select All",
-                accelerator: "Command+A",
-                selector: "selectAll:"
             }]
         }, {
             label: "View",
@@ -180,29 +144,6 @@ app.on("ready", async() => {
             }, {
                 label: "Bring All to Front",
                 selector: "arrangeInFront:"
-            }]
-        }, {
-            label: "Help",
-            submenu: [{
-                label: "Learn More",
-                click() {
-                    shell.openExternal("http://electron.atom.io");
-                }
-            }, {
-                label: "Documentation",
-                click() {
-                    shell.openExternal("https://github.com/atom/electron/tree/master/docs#readme");
-                }
-            }, {
-                label: "Community Discussions",
-                click() {
-                    shell.openExternal("https://discuss.atom.io/c/electron");
-                }
-            }, {
-                label: "Search Issues",
-                click() {
-                    shell.openExternal("https://github.com/atom/electron/issues");
-                }
             }]
         }];
 
@@ -249,29 +190,6 @@ app.on("ready", async() => {
                     mainWindow.setFullScreen(!mainWindow.isFullScreen());
                 }
             }]
-        }, {
-            label: "Help",
-            submenu: [{
-                label: "Learn More",
-                click() {
-                    shell.openExternal("http://electron.atom.io");
-                }
-            }, {
-                label: "Documentation",
-                click() {
-                    shell.openExternal("https://github.com/atom/electron/tree/master/docs#readme");
-                }
-            }, {
-                label: "Community Discussions",
-                click() {
-                    shell.openExternal("https://discuss.atom.io/c/electron");
-                }
-            }, {
-                label: "Search Issues",
-                click() {
-                    shell.openExternal("https://github.com/atom/electron/issues");
-                }
-            }]
         }];
         menu = Menu.buildFromTemplate(template);
         mainWindow.setMenu(menu);
@@ -302,14 +220,21 @@ function open() {
             throw new Error("invalid file contents");
         }
     } catch (e) {
-        dialog.showErrorBox("SceneScreen Error", "Could not read the file you specified – are you sure it was created " +
-            "with SceneScreen?");
+        dialog.showErrorBox(
+            "SceneScreen Error",
+            "Could not read the file you specified – are you sure it was created " +
+            "with SceneScreen?"
+        );
         return;
     }
-    currentFilePath = files[0];
+    // currentFilePath = files[0];
     mainWindow.webContents.send("file-open", data);
 }
 
 ipcMain.on("error", (event, data) => {
     dialog.showErrorBox("SceneScreen Error", data.message);
+});
+
+ipcMain.on("open", () => {
+    open();
 });

@@ -61,8 +61,6 @@ function *openFile({ data: { scenes } }) {
         });
         yield put(updateScenes(populatedScenes));
     } catch (e) {
-        console.error("Error reading file", e);
-        console.log("scenes:", scenes);
         ipcRenderer.send(
             "error",
             { message: `Error reading file${e.message ? ` – ${e.message}` : ""}` }

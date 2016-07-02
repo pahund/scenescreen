@@ -3,48 +3,42 @@ import styles from "./styles.css";
 import classnames from "classnames";
 import range from "../../utils/range";
 
-const Home = ({ sceneTriggered, scenes, layout }) => {
-    return (
-        <div>
-            <div className={styles.container}>
-                {range(0, 15).map(index => {
-                    const scene = scenes[index];
-                    const key = `scene${index}`;
-                    if (scene) {
-                        const className = classnames(
-                            styles.scene,
-                            styles[`cols${layout.columns}`],
-                            { [styles.selected]: scene.selected }
-                        );
-                        return (
-                            <div className={className}
-                                 style={{ backgroundColor: scene.bgColor, color: scene.color }}
-                                 key={key}
-                                 onClick={() => sceneTriggered(index)}>
-                                {scene.name}
-                            </div>
-                        );
-                    }
+const Home = ({ sceneTriggered, scenes, layout, requestFileOpenDialog }) => (
+    <div>
+        <div className={styles.container}>
+            {range(0, 15).map(index => {
+                const scene = scenes[index];
+                const key = `scene${index}`;
+                if (scene) {
                     const className = classnames(
                         styles.scene,
                         styles[`cols${layout.columns}`],
-                        styles.disabled
+                        { [styles.selected]: scene.selected }
                     );
-                    return <div key={key} className={className} />;
-                })}
-            </div>
+                    return (
+                        <div className={className}
+                             style={{ backgroundColor: scene.bgColor, color: scene.color }}
+                             key={key}
+                             onClick={() => sceneTriggered(index)}>
+                            {scene.name}
+                        </div>
+                    );
+                }
+                const className = classnames(
+                    styles.scene,
+                    styles[`cols${layout.columns}`],
+                    styles.disabled
+                );
+                return scenes.length ? <div key={key} className={className} /> :
+                    <div key={key} className={className} onClick={requestFileOpenDialog} />;
+            })}
         </div>
-    );
-};
-
-function calculateCols() {
-    return window.matchMedia("(max-width: 300px)").matches ? 1 :
-        window.matchMedia("(max-width: 600px)").matches ? 2 :
-        window.matchMedia("(max-width: 1200px)").matches ? 4 : 8;
-}
+    </div>
+);
 
 Home.propTypes = {
     sceneTriggered: PropTypes.func.isRequired,
+    requestFileOpenDialog: PropTypes.func.isRequired,
     scenes: PropTypes.arrayOf(
         PropTypes.shape({
             name: PropTypes.string,

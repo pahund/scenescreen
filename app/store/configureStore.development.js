@@ -7,6 +7,7 @@ import rootReducer from "../reducers";
 import sendMidi from "../sagas/sendMidi";
 import updateLayout from "../sagas/updateLayout";
 import openFile from "../sagas/openFile";
+import requestFileOpenDialog from "../sagas/requestFileOpenDialog";
 
 const logger = createLogger({
     level: "info",
@@ -26,6 +27,7 @@ export default initialState => {
     sagaMiddleware.run(sendMidi, store.getState);
     sagaMiddleware.run(updateLayout);
     sagaMiddleware.run(openFile);
+    sagaMiddleware.run(requestFileOpenDialog);
 
     if (module.hot) {
         module.hot.accept("../reducers", () =>

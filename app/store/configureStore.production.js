@@ -6,6 +6,7 @@ import createSagaMiddleware from "redux-saga";
 import sendMidi from "../sagas/sendMidi";
 import updateLayout from "../sagas/updateLayout";
 import openFile from "../sagas/openFile";
+import requestFileOpenDialog from "../sagas/requestFileOpenDialog";
 
 const router = routerMiddleware(hashHistory);
 const sagaMiddleware = createSagaMiddleware();
@@ -17,5 +18,6 @@ export default initialState => {
     sagaMiddleware.run(sendMidi, store.getState);
     sagaMiddleware.run(updateLayout);
     sagaMiddleware.run(openFile);
+    sagaMiddleware.run(requestFileOpenDialog);
     return store;
 };

@@ -3,6 +3,7 @@ import { compose, withHandlers } from "recompose";
 import { connect } from "react-redux";
 import sendMidi from "../actions/sendMidi";
 import selectScene from "../actions/selectScene";
+import requestFileOpenDialog from "../actions/requestFileOpenDialog";
 
 const enhance = compose(
     connect(
@@ -15,7 +16,8 @@ const enhance = compose(
         sceneTriggered: ({ dispatch, scenes }) => sceneIndex => {
             dispatch(selectScene(sceneIndex));
             dispatch(sendMidi(scenes[sceneIndex].messages));
-        }
+        },
+        requestFileOpenDialog: ({ dispatch }) => () => dispatch(requestFileOpenDialog())
     })
 );
 

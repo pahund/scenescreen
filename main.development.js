@@ -4,7 +4,6 @@ import fs from "fs";
 let menu;
 let template;
 let mainWindow = null;
-// let currentFilePath = null;
 
 if (process.env.NODE_ENV === "development") {
     require("electron-debug")(); // eslint-disable-line global-require
@@ -228,8 +227,8 @@ function open() {
         );
         return;
     }
-    // currentFilePath = files[0];
     mainWindow.webContents.send("file-open", data);
+    mainWindow.setTitle(`SceneScreen – ${files[0].replace(/^.*[\\\/]/, "")}`);
 }
 
 ipcMain.on("error", (event, data) => {

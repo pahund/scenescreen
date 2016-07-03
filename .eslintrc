@@ -20,7 +20,8 @@
     "react/jsx-closing-bracket-location": [2, "after-props"],
     "react/jsx-first-prop-new-line": [2, "never"],
     "react/jsx-indent-props": 0,
-    "no-confusing-arrow": 0
+    "no-confusing-arrow": 0,
+    "no-return-assign": 0
   },
   "plugins": [
     "import",

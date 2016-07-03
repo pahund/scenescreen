@@ -1,0 +1,42 @@
+.transport {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.buttonWrap {
+    padding: 0 2px;
+    border-right: 1px solid #696969;
+}
+
+.buttonWrap:last-child {
+    border: none;
+}
+
+.button {
+    font-size: 1.2rem;
+    color: #b0b0b0;
+    width: 35px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button.active {
+    background-color: #bebebe;
+    color: #323232;
+}
+
+.button.pressed {
+    background-color: #dedede !important;
+    color: #323232;
+}
+
+.button:hover {
+    background-color: #515151;
+}
+
+.button.active:hover {
+    background-color: #c8c8c8;
+    color: #323232;
+}

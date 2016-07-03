@@ -74,7 +74,7 @@ body {
     position: relative;
     color: white;
     height: 100vh;
-    background: linear-gradient(to bottom, #303030 0%, #404040 50%, #303030 100%);
+    background-color: #323232;
     font-family: Yanone Kaffeesatz, sans-serif;
     overflow-y: hidden;
     padding: 8px;

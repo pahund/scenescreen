@@ -2,9 +2,11 @@ import React, { PropTypes } from "react";
 import styles from "./styles.css";
 import classnames from "classnames";
 import range from "../../utils/range";
+import Transport from "../../containers/Transport";
 
 const Home = ({ sceneTriggered, scenes, layout, requestFileOpenDialog }) => (
     <div>
+        <Transport />
         <div className={styles.container}>
             {range(0, 15).map(index => {
                 const scene = scenes[index];

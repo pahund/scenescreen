@@ -4,10 +4,7 @@ import { hashHistory } from "react-router";
 import { routerMiddleware } from "react-router-redux";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "../reducers";
-import sendMidi from "../sagas/sendMidi";
-import updateLayout from "../sagas/updateLayout";
-import openFile from "../sagas/openFile";
-import requestFileOpenDialog from "../sagas/requestFileOpenDialog";
+import runSagas from "./runSagas";
 
 const logger = createLogger({
     level: "info",
@@ -24,10 +21,7 @@ const enhancer = compose(
 
 export default initialState => {
     const store = createStore(rootReducer, initialState, enhancer);
-    sagaMiddleware.run(sendMidi, store.getState);
-    sagaMiddleware.run(updateLayout);
-    sagaMiddleware.run(openFile);
-    sagaMiddleware.run(requestFileOpenDialog);
+    runSagas(sagaMiddleware, store);
 
     if (module.hot) {
         module.hot.accept("../reducers", () =>

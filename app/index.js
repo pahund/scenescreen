@@ -12,6 +12,9 @@ import calculateLayoutColumns from "./utils/calculateLayoutColumns";
 import resize from "./actions/resize";
 import "./app.global.css";
 import openFile from "./actions/openFile";
+import midiClock from "./midi/midiClock";
+import clockMessage from "./midi/clockMessage";
+import { STOPPED } from "./actions/changeTransportState";
 
 if (navigator.requestMIDIAccess) {
     navigator.requestMIDIAccess({ sysex: false })
@@ -34,8 +37,15 @@ function showError({ message }) {
 }
 
 function showApp(midiOutput) {
+    const clock = midiClock(new window.AudioContext());
+    clock.setTempo(120);
+    clock.on("position", () => midiOutput.send(clockMessage.tick));
     const store = configureStore({
         midiOutput,
+        transport: {
+            clock,
+            state: STOPPED
+        },
         scenes: [],
         layout: {
             columns: calculateLayoutColumns()

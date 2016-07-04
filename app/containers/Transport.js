@@ -12,7 +12,9 @@ import stop from "../actions/stop";
 
 const enhance = compose(
     connect(state => ({
-        state: state.transport.state
+        state: state.transport.state,
+        bar: state.transport.bar,
+        beat: state.transport.beat
     })),
     withHandlers({
         play: ({ dispatch }) => () => dispatch(play()),

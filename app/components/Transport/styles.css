@@ -22,6 +22,15 @@
     align-items: center;
 }
 
+.measureAndBeat {
+    color: #b0b0b0;
+    width: 50px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .button.active {
     background-color: #bebebe;
     color: #323232;

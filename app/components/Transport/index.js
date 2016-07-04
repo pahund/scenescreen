@@ -45,7 +45,7 @@ class Transport extends Component {
     }
 
     render() {
-        const { state } = this.props;
+        const { state, bar, beat } = this.props;
         const { pressed } = this.state;
         const className = {
             stop: classnames(
@@ -74,6 +74,11 @@ class Transport extends Component {
                         <i className="fa fa-play" />
                     </div>
                 </div>
+                <div className={styles.buttonWrap}>
+                    <div className={styles.button}>
+                        {bar}.{beat}
+                    </div>
+                </div>
             </div>
         );
     }
@@ -82,7 +87,9 @@ class Transport extends Component {
 Transport.propTypes = {
     play: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
-    state: PropTypes.string.isRequired
+    state: PropTypes.string.isRequired,
+    bar: PropTypes.number.isRequired,
+    beat: PropTypes.number.isRequired
 };
 
 export default Transport;

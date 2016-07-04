@@ -1,10 +1,13 @@
 /**
- * clock.js
+ * transport.js
  *
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 02 Jul 2016
  */
-import { CHANGE_TRANSPORT_STATE } from "../actions";
+import {
+    CHANGE_TRANSPORT_STATE,
+    UPDATE_BEAT_BAR
+} from "../actions";
 
 export default (state = {}, action) => {
     switch (action.type) {
@@ -12,6 +15,12 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 state: action.state
+            };
+        case UPDATE_BEAT_BAR:
+            return {
+                ...state,
+                bar: action.bar,
+                beat: action.beat
             };
         default:
     }

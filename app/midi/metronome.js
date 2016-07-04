@@ -17,19 +17,47 @@ import {
     SET_TEMPO
 } from "./metronomeWorker"; // eslint-disable-line import/no-duplicates
 
+const defaultConfig = {
+    tempo: 120,
+    bars: 4,
+    beatsPerBar: 4,
+    resolution: 24
+};
+
 class Metronome {
-    constructor(tempo = 120, resolution = 24) {
+    constructor({
+        tempo = defaultConfig.tempo,
+        bars = defaultConfig.bars,
+        beatsPerBar = defaultConfig.beatsPerBar,
+        resolution = defaultConfig.resolution
+    } = defaultConfig) {
         this.tempo = tempo;
+        this.bars = bars;
+        this.beatsPerBar = beatsPerBar;
         this.resolution = resolution;
         this.ticks = 0;
+        this.beat = 1;
+        this.bar = 1;
         this.events = {};
 
         this.worker = new MetronomeWorker();
 
         this.worker.addEventListener("message", () => {
+            if (this.ticks % 24 === 0) {
+                this.trigger("beat", this.bar, this.beat);
+                if (this.beat % this.beatsPerBar === 0) {
+                    this.bar++;
+                    if (this.bar > this.bars) {
+                        this.bar = 1;
+                    }
+                }
+                this.beat++;
+                if (this.beat > this.beatsPerBar) {
+                    this.beat = 1;
+                }
+            }
             this.ticks++;
             this.trigger("position", this.ticks);
-            this.trigger(this.ticks);
         });
     }
 
@@ -69,6 +97,8 @@ class Metronome {
 
     reset() {
         this.ticks = 0;
+        this.bar = 1;
+        this.beat = 1;
     }
 
     setTempo(tempo) {

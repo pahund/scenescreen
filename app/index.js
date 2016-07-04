@@ -17,6 +17,7 @@ import { STOPPED } from "./actions/changeTransportState";
 import Metronome from "./midi/metronome";
 import initMidiOutput from "./midi/initMidiOutput";
 import initConfig from "./config/initConfig";
+import updateBeatBar from "./actions/updateBeatBar";
 
 Promise.all([
     initConfig(),
@@ -31,14 +32,15 @@ function showError({ message }) {
 }
 
 function showApp([config, midiOutput]) {
-    const metronome = new Metronome(config.tempo);
-    metronome.on("position", () => midiOutput.send(clockMessage.tick));
+    const metronome = new Metronome({ tempo: config.tempo });
 
     const store = configureStore({
         config,
         midiOutput,
         transport: {
             metronome,
+            beat: 1,
+            bar: 1,
             state: STOPPED
         },
         scenes: [],
@@ -46,6 +48,9 @@ function showApp([config, midiOutput]) {
             columns: calculateLayoutColumns()
         }
     });
+
+    metronome.on("position", () => midiOutput.send(clockMessage.tick));
+    metronome.on("beat", (bar, beat) => store.dispatch(updateBeatBar(bar, beat)));
     const history = syncHistoryWithStore(hashHistory, store);
     window.onresize = () => store.dispatch(resize());
     ipcRenderer.on("file-open", (event, data) => store.dispatch(openFile(data)));

@@ -14,3 +14,4 @@ export const REQUEST_FILE_OPEN_DIALOG = "REQUEST_FILE_OPEN_DIALOG";
 export const PLAY = "PLAY";
 export const STOP = "STOP";
 export const CHANGE_TRANSPORT_STATE = "CHANGE_TRANSPORT_STATE";
+export const UPDATE_BEAT_BAR = "UPDATE_BEAT_BAR";

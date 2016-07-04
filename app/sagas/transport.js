@@ -9,6 +9,7 @@ import { PLAY, STOP } from "../actions";
 import { put } from "redux-saga/effects";
 import changeTransportState, { PLAYING, STOPPED, PAUSED } from "../actions/changeTransportState";
 import clockMessage from "../midi/clockMessage";
+import updateBeatBar from "../actions/updateBeatBar";
 
 function *transport(getState, { type }) {
     const { midiOutput, transport: { metronome, state } } = getState();
@@ -38,6 +39,7 @@ function *transport(getState, { type }) {
                 metronome.reset();
                 midiOutput.send(clockMessage.goToStart);
                 yield put(changeTransportState(STOPPED));
+                yield put(updateBeatBar(1, 1));
                 break;
             default:
         }

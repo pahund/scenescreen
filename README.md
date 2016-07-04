@@ -47,7 +47,35 @@ MIT © [Patrick Hund](https://github.com/pahund)
 ## Acknowledgements
 
 * Based on [Electron React Boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
-published under the MIT license, © [C. T. Lin](https://github.com/chentsulin)
-* Uses code bases on [Metronome.js](https://gist.github.com/nick-thompson/4551106) published under 
-  the MIT license, © [Nick Thompson](https://gist.github.com/nick-thompson)
-* Uses [PouchDB](https://pouchdb.com/), published under the Apache License
+  published under the [MIT License](https://github.com/chentsulin/electron-react-boilerplate/blob/master/LICENSE),
+  © 2015 [C. T. Lin](https://github.com/chentsulin)
+* Uses [Electron](https://github.com/electron/electron),
+  published under the [MIT License](https://github.com/electron/electron/blob/master/LICENSE),
+  © 2014 [GitHub Inc.](https://github.com/github)
+* Uses [React](https://github.com/facebook/react),
+  published under the [BSD License](https://github.com/facebook/react/blob/master/LICENSE),
+  © 2013–present [Facebook Inc.](https://github.com/facebook),
+  all rights reserved
+* Uses [Redux](https://github.com/reactjs/redux),
+  published under the [MIT License](https://github.com/reactjs/redux/blob/master/LICENSE.md),
+  © 2015–present [Dan Abramov](https://github.com/gaearon)
+* Uses [redux-saga](https://github.com/yelouafi/redux-saga),
+  published under the [MIT License](https://github.com/yelouafi/redux-saga/blob/master/LICENSE),
+  © 2015 [Yassine Elouafi](https://github.com/yelouafi)
+* Uses [webpack](https://github.com/webpack/webpack),
+  published under the [MIT License](https://github.com/webpack/webpack/blob/master/LICENSE),
+  © 2012–2016 [Tobias Koppers](https://github.com/sokra)
+* Uses [Babel](https://github.com/babel/babel),
+  published under the [MIT License](https://github.com/babel/babel/blob/master/LICENSE),
+  © 2014–2016 [Sebastian McKenzie](https://github.com/kittens)
+* Uses [PouchDB](https://github.com/pouchdb/pouchdb),
+  published under the [Apache License 2.0](https://github.com/pouchdb/pouchdb/blob/master/LICENSE)
+* Uses [Node.js](https://github.com/nodejs/node),
+  published under [this license](https://github.com/nodejs/node/blob/master/LICENSE),
+  © Node.js contributors, all rights reserved
+* Uses [Font Awesome](https://github.com/FortAwesome/Font-Awesome)
+  by [Dave Gandy](https://github.com/davegandy),
+  [license note](https://github.com/FortAwesome/Font-Awesome#license)
+* Portons of the code is based on [Metronome.js](https://gist.github.com/nick-thompson/4551106),
+  published under the MIT License,
+  © 2012 [Nick Thompson](https://gist.github.com/nick-thompson)

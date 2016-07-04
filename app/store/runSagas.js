@@ -9,6 +9,7 @@ import updateLayout from "../sagas/updateLayout";
 import openFile from "../sagas/openFile";
 import requestFileOpenDialog from "../sagas/requestFileOpenDialog";
 import transport from "../sagas/transport";
+import scheduleScene from "../sagas/scheduleScene";
 
 export default (sagaMiddleware, store) => {
     sagaMiddleware.run(sendMidi, store.getState);
@@ -16,4 +17,5 @@ export default (sagaMiddleware, store) => {
     sagaMiddleware.run(openFile);
     sagaMiddleware.run(requestFileOpenDialog);
     sagaMiddleware.run(transport, store.getState);
+    sagaMiddleware.run(scheduleScene, store.getState);
 };

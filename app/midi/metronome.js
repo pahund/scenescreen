@@ -58,9 +58,11 @@ class Metronome {
             }
             this.trigger("position", this.ticks);
             const scheduledCallKey = this.ticks % (this.bars * this.beatsPerBar * this.resolution);
-            const scheduledCall = this.scheduledCalls.get(scheduledCallKey);
-            if (scheduledCall) {
-                scheduledCall();
+            const scheduled = this.scheduledCalls.get(scheduledCallKey);
+            if (scheduled) {
+                for (const func of scheduled) {
+                    func();
+                }
                 this.scheduledCalls.delete(scheduledCallKey);
             }
             this.ticks++;
@@ -117,12 +119,23 @@ class Metronome {
     }
 
     schedule(bar, beat, func) {
-        let tick = (bar - 1) * (beat - 1) * this.resolution;
+        let tick = (((bar - 1) * this.beatsPerBar) + beat - 1) * this.resolution;
         tick += this.scheduleOffset;
         if (tick < 0) {
             tick = this.bars * this.beatsPerBar * this.resolution + tick;
         }
-        this.scheduledCalls.set(tick, func);
+        const scheduled = this.scheduledCalls.get(tick);
+        if (scheduled) {
+            scheduled.push(func);
+        } else {
+            this.scheduledCalls.set(tick, [func]);
+        }
+    }
+
+    waitForBeat(bar, beat) {
+        return new Promise(resolve => {
+            this.schedule(bar, beat, resolve);
+        });
     }
 }
 

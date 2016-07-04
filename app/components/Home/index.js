@@ -15,13 +15,13 @@ const Home = ({ sceneTriggered, scenes, layout, requestFileOpenDialog }) => (
                     const className = classnames(
                         styles.scene,
                         styles[`cols${layout.columns}`],
-                        { [styles.selected]: scene.selected }
+                        { [styles.selected]: scene.selected || scene.blinking }
                     );
                     return (
                         <div className={className}
                              style={{ backgroundColor: scene.bgColor, color: scene.color }}
                              key={key}
-                             onClick={() => sceneTriggered(index)}>
+                             onMouseDown={() => sceneTriggered(index)}>
                             {scene.name}
                         </div>
                     );

@@ -14,7 +14,9 @@ const enhance = compose(
     connect(state => ({
         state: state.transport.state,
         bar: state.transport.bar,
-        beat: state.transport.beat
+        beat: state.transport.beat,
+        tempo: state.config.tempo,
+        beatsPerBar: state.config.beatsPerBar
     })),
     withHandlers({
         play: ({ dispatch }) => () => dispatch(play()),

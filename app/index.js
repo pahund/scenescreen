@@ -32,7 +32,7 @@ function showError({ message }) {
 }
 
 function showApp([config, midiOutput]) {
-    const metronome = new Metronome({ tempo: config.tempo });
+    const metronome = new Metronome(config);
 
     const store = configureStore({
         config,

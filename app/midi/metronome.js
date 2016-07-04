@@ -16,13 +16,7 @@ import {
     STOP,
     SET_TEMPO
 } from "./metronomeWorker"; // eslint-disable-line import/no-duplicates
-
-const defaultConfig = {
-    tempo: 120,
-    bars: 4,
-    beatsPerBar: 4,
-    resolution: 24
-};
+import defaultConfig from "../config/defaultConfig";
 
 class Metronome {
     constructor({

@@ -45,7 +45,7 @@ class Transport extends Component {
     }
 
     render() {
-        const { state, bar, beat } = this.props;
+        const { state, bar, beat, tempo, beatsPerBar } = this.props;
         const { pressed } = this.state;
         const className = {
             stop: classnames(
@@ -61,6 +61,17 @@ class Transport extends Component {
         return (
             <div className={styles.transport}>
                 <div className={styles.buttonWrap}>
+                    <div className={styles.info}>
+                        {bar}.{beat}
+                    </div>
+                </div>
+                <div className={styles.buttonWrap}>
+                    <div className={styles.info}>
+                        {tempo}<br />
+                        {beatsPerBar}/4
+                    </div>
+                </div>
+                <div className={styles.buttonWrap}>
                     <div className={className.stop}
                          onMouseDown={this.stopMouseDown}
                          onMouseUp={this.stopMouseUp}>
@@ -74,11 +85,6 @@ class Transport extends Component {
                         <i className="fa fa-play" />
                     </div>
                 </div>
-                <div className={styles.buttonWrap}>
-                    <div className={styles.button}>
-                        {bar}.{beat}
-                    </div>
-                </div>
             </div>
         );
     }
@@ -89,7 +95,9 @@ Transport.propTypes = {
     stop: PropTypes.func.isRequired,
     state: PropTypes.string.isRequired,
     bar: PropTypes.number.isRequired,
-    beat: PropTypes.number.isRequired
+    beat: PropTypes.number.isRequired,
+    tempo: PropTypes.number.isRequired,
+    beatsPerBar: PropTypes.number.isRequired
 };
 
 export default Transport;

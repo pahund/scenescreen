@@ -8,12 +8,9 @@
 // there is a bug with PouchDB and webpack HMR, using index-browser as workaraound
 // https://github.com/pouchdb/pouchdb/issues/5312
 import PouchDB from "pouchdb/lib/index-browser";
+import defaultConfig from "./defaultConfig";
 
 export const CONFIG = "CONFIG";
-
-const defaultConfig = {
-    tempo: 120
-};
 
 export default () => {
     const db = new PouchDB("scenescreen");

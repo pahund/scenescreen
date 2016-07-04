@@ -22,13 +22,15 @@
     align-items: center;
 }
 
-.measureAndBeat {
+.info {
     color: #b0b0b0;
-    width: 50px;
+    width: 35px;
     height: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    cursor: default;
 }
 
 .button.active {

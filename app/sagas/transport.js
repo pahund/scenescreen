@@ -11,16 +11,16 @@ import changeTransportState, { PLAYING, STOPPED, PAUSED } from "../actions/chang
 import clockMessage from "../midi/clockMessage";
 
 function *transport(getState, { type }) {
-    const { midiOutput, transport: { clock, state } } = getState();
+    const { midiOutput, transport: { metronome, state } } = getState();
     if (type === PLAY) {
         switch (state) {
             case STOPPED:
-                clock.start();
+                metronome.start();
                 midiOutput.send(clockMessage.start);
                 yield put(changeTransportState(PLAYING));
                 break;
             case PAUSED:
-                clock.continue();
+                metronome.start();
                 midiOutput.send(clockMessage.continue);
                 yield put(changeTransportState(PLAYING));
                 break;
@@ -30,11 +30,12 @@ function *transport(getState, { type }) {
     if (type === STOP) {
         switch (state) {
             case PLAYING:
-                clock.stop();
+                metronome.stop();
                 midiOutput.send(clockMessage.stop);
                 yield put(changeTransportState(PAUSED));
                 break;
             case PAUSED:
+                metronome.reset();
                 midiOutput.send(clockMessage.goToStart);
                 yield put(changeTransportState(STOPPED));
                 break;

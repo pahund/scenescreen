@@ -6,10 +6,17 @@
  */
 import { takeEvery } from "redux-saga";
 import { SEND_MIDI } from "../actions";
+import { PLAYING } from "../actions/changeTransportState";
 
 function *sendMidi(getState, { messages }) {
-    const { midiOutput } = getState();
-    messages.forEach(message => midiOutput.send(message));
+    const { midiOutput, transport: { metronome, state } } = getState();
+    if (state === PLAYING) {
+        metronome.schedule(1, 1, () => {
+            messages.forEach(message => midiOutput.send(message));
+        });
+    } else {
+        messages.forEach(message => midiOutput.send(message));
+    }
 }
 
 export default function *(getState) {

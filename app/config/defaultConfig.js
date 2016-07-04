@@ -8,5 +8,6 @@ export default {
     tempo: 120,
     bars: 4,
     beatsPerBar: 4,
-    resolution: 24
+    resolution: 24,
+    scheduleOffset: -1
 };

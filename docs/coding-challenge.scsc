@@ -3,7 +3,7 @@
     {
       "name": "Beat",
       "text-color": "black",
-      "background-color": "silver",
+      "background-color": "lime",
       "channels": {
         "1": {
           "device": "combinator",
@@ -29,9 +29,9 @@
       }
     },
     {
-      "name": "Beat + Bass",
+      "name": "Beat Bass",
       "text-color": "black",
-      "background-color": "silver",
+      "background-color": "hotpink",
       "channels": {
         "1": {
           "device": "combinator",
@@ -66,9 +66,9 @@
       }
     },
     {
-      "name": "Beat + Bass + Clavi",
+      "name": "Beat Bass Clavi",
       "text-color": "black",
-      "background-color": "silver",
+      "background-color": "gold",
       "channels": {
         "1": {
           "device": "combinator",

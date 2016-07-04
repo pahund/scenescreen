@@ -23,16 +23,22 @@ class Metronome {
         tempo = defaultConfig.tempo,
         bars = defaultConfig.bars,
         beatsPerBar = defaultConfig.beatsPerBar,
-        resolution = defaultConfig.resolution
+        resolution = defaultConfig.resolution,
+        scheduleOffset = defaultConfig.scheduleOffset
     } = defaultConfig) {
         this.tempo = tempo;
         this.bars = bars;
         this.beatsPerBar = beatsPerBar;
         this.resolution = resolution;
+
+        // value -1: trigger scheduled calls just a little ahead of time to avoid clicks
+        this.scheduleOffset = scheduleOffset;
+
         this.ticks = 0;
         this.beat = 1;
         this.bar = 1;
         this.events = {};
+        this.scheduledCalls = new Map();
 
         this.worker = new MetronomeWorker();
 
@@ -50,8 +56,14 @@ class Metronome {
                     this.beat = 1;
                 }
             }
-            this.ticks++;
             this.trigger("position", this.ticks);
+            const scheduledCallKey = this.ticks % (this.bars * this.beatsPerBar * this.resolution);
+            const scheduledCall = this.scheduledCalls.get(scheduledCallKey);
+            if (scheduledCall) {
+                scheduledCall();
+                this.scheduledCalls.delete(scheduledCallKey);
+            }
+            this.ticks++;
         });
     }
 
@@ -64,7 +76,7 @@ class Metronome {
         if (e in this.events) {
             this.events[e].splice(this.events[e].indexOf(listener), 1);
         }
-    }
+    }l
 
     trigger(eventName, ...args) {
         if (this.events[eventName] === undefined) {
@@ -102,6 +114,15 @@ class Metronome {
             tempo: this.tempo,
             resolution: this.resolution
         });
+    }
+
+    schedule(bar, beat, func) {
+        let tick = (bar - 1) * (beat - 1) * this.resolution;
+        tick += this.scheduleOffset;
+        if (tick < 0) {
+            tick = this.bars * this.beatsPerBar * this.resolution + tick;
+        }
+        this.scheduledCalls.set(tick, func);
     }
 }
 

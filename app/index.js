@@ -15,19 +15,13 @@ import openFile from "./actions/openFile";
 import clockMessage from "./midi/clockMessage";
 import { STOPPED } from "./actions/changeTransportState";
 import Metronome from "./midi/metronome";
+import initMidiOutput from "./midi/initMidiOutput";
+import initConfig from "./config/initConfig";
 
-if (navigator.requestMIDIAccess) {
-    navigator.requestMIDIAccess({ sysex: false })
-        .then(({ outputs }) => {
-            if (outputs.size === 0) {
-                throw new Error("No MIDI output ports available.");
-            }
-            showApp(outputs.values().next().value);
-        })
-        .catch(showError);
-} else {
-    showError(new Error("No MIDI support in your browser."));
-}
+Promise.all([
+    initConfig(),
+    initMidiOutput()
+]).then(showApp).catch(showError);
 
 function showError({ message }) {
     render(
@@ -36,11 +30,12 @@ function showError({ message }) {
     );
 }
 
-function showApp(midiOutput) {
-    const metronome = new Metronome(120);
+function showApp([config, midiOutput]) {
+    const metronome = new Metronome(config.tempo);
     metronome.on("position", () => midiOutput.send(clockMessage.tick));
 
     const store = configureStore({
+        config,
         midiOutput,
         transport: {
             metronome,

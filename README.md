@@ -46,6 +46,8 @@ MIT © [Patrick Hund](https://github.com/pahund)
 
 ## Acknowledgements
 
-Based on [Electron React Boilerplate](https://github.com/chentsulin/electron-react-boilerplate).
-
-MIT © [C. T. Lin](https://github.com/chentsulin)
+* Based on [Electron React Boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
+published under the MIT license, © [C. T. Lin](https://github.com/chentsulin)
+* Uses code bases on [Metronome.js](https://gist.github.com/nick-thompson/4551106) published under 
+  the MIT license, © [Nick Thompson](https://gist.github.com/nick-thompson)
+* Uses [PouchDB](https://pouchdb.com/), published under the Apache License

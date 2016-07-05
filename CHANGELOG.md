@@ -10,7 +10,7 @@
 * Previously loaded file restored at startup
 * Tempo, number of bars and beats per minute stored persistently between sessions
 
-# 0.1.0 – Initial Release
+# 0.1.0 – Basic App With 16 Scenes
 
 ## Features
 

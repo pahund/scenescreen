@@ -22,7 +22,7 @@ function *scheduleScene(getState, { sceneIndex }) {
         while (barIndex <= bars && beatIndex <= beatsPerBar) {
             yield call([metronome, metronome.waitForBeat], barIndex, beatIndex);
             yield put(blinkScene(sceneIndex, true));
-            yield delay(5);
+            yield delay(10);
             yield put(blinkScene(sceneIndex, false));
             beatIndex++;
             if (beatIndex > beatsPerBar) {

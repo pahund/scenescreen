@@ -9,18 +9,24 @@ import { compose, withHandlers } from "recompose";
 import { connect } from "react-redux";
 import play from "../actions/play";
 import stop from "../actions/stop";
+import changeBars from "../actions/changeBars";
+import changeBeatsPerBar from "../actions/changeBeatsPerBar";
+import changeTempo from "../actions/changeTempo";
 
 const enhance = compose(
     connect(state => ({
         state: state.transport.state,
-        bar: state.transport.bar,
-        beat: state.transport.beat,
         tempo: state.config.tempo,
-        beatsPerBar: state.config.beatsPerBar
+        beatsPerBar: state.config.beatsPerBar,
+        bars: state.config.bars
     })),
     withHandlers({
         play: ({ dispatch }) => () => dispatch(play()),
-        stop: ({ dispatch }) => () => dispatch(stop())
+        stop: ({ dispatch }) => () => dispatch(stop()),
+        changeBars: ({ dispatch }) => ({ bars }) => dispatch(changeBars(parseInt(bars, 10))),
+        changeBeatsPerBar: ({ dispatch }) => ({ beatsPerBar }) =>
+            dispatch(changeBeatsPerBar(parseInt(beatsPerBar, 10))),
+        changeTempo: ({ dispatch }) => ({ tempo }) => dispatch(changeTempo(parseInt(tempo, 10)))
     })
 );
 

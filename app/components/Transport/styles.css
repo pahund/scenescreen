@@ -51,3 +51,32 @@
     background-color: #c8c8c8;
     color: #323232;
 }
+
+.editing {
+    font-family: Yanone Kaffeesatz, sans-serif;
+    font-size: 1rem;
+    padding: 0;
+    appearance: none;
+    margin: 0;
+    box-shadow: none;
+    color: #323232;
+    background-color: #b0b0b0;
+    border: none;
+    text-align: center;
+}
+
+.editing:focus, .editing:active {
+    outline: none;
+}
+
+.wide  {
+    width: 24px;
+}
+
+.medium  {
+    width: 16px;
+}
+
+.narrow {
+    width: 8px;
+}

@@ -11,9 +11,10 @@ import PouchDB from "pouchdb/lib/index-browser";
 import defaultConfig from "./defaultConfig";
 
 export const CONFIG = "CONFIG";
+export const DB_NAME = "scenescreen";
 
 export default () => {
-    const db = new PouchDB("scenescreen");
+    const db = new PouchDB(DB_NAME);
     return db.get(CONFIG).catch(error => {
         if (error.status === 404) {
             /* eslint-disable no-console */

@@ -10,6 +10,8 @@ import React, { Component, PropTypes } from "react";
 import styles from "./styles.css";
 import classnames from "classnames";
 import { PLAYING } from "../../actions/changeTransportState";
+import { RIENumber } from "riek";
+import CurrentBeatAndBar from "../../containers/CurrentBeatAndBar";
 
 class Transport extends Component {
     constructor(props) {
@@ -45,7 +47,15 @@ class Transport extends Component {
     }
 
     render() {
-        const { state, bar, beat, tempo, beatsPerBar } = this.props;
+        const {
+            state,
+            bars,
+            tempo,
+            beatsPerBar,
+            changeBars,
+            changeBeatsPerBar,
+            changeTempo
+        } = this.props;
         const { pressed } = this.state;
         const className = {
             stop: classnames(
@@ -62,13 +72,29 @@ class Transport extends Component {
             <div className={styles.transport}>
                 <div className={styles.buttonWrap}>
                     <div className={styles.info}>
-                        {bar}.{beat}
+                        <div>
+                            <RIENumber value={bars}
+                                       change={changeBars}
+                                       classEditing={classnames(styles.editing, styles.medium)}
+                                       propName="bars" />
+                            <br />
+                            <CurrentBeatAndBar />
+                        </div>
                     </div>
                 </div>
                 <div className={styles.buttonWrap}>
                     <div className={styles.info}>
-                        {tempo}<br />
-                        {beatsPerBar}/4
+                        <div>
+                            <RIENumber value={tempo}
+                                       change={changeTempo}
+                                       classEditing={classnames(styles.editing, styles.wide)}
+                                       propName="tempo" />
+                            <br />
+                            <RIENumber value={beatsPerBar}
+                                       change={changeBeatsPerBar}
+                                       classEditing={classnames(styles.editing, styles.narrow)}
+                                       propName="beatsPerBar" />/4
+                        </div>
                     </div>
                 </div>
                 <div className={styles.buttonWrap}>
@@ -93,11 +119,14 @@ class Transport extends Component {
 Transport.propTypes = {
     play: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
+    changeBars: PropTypes.func.isRequired,
+    changeBeatsPerBar: PropTypes.func.isRequired,
+    changeTempo: PropTypes.func.isRequired,
     state: PropTypes.string.isRequired,
-    bar: PropTypes.number.isRequired,
-    beat: PropTypes.number.isRequired,
+    bars: PropTypes.number.isRequired,
     tempo: PropTypes.number.isRequired,
     beatsPerBar: PropTypes.number.isRequired
+
 };
 
 export default Transport;

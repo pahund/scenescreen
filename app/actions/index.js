@@ -17,3 +17,6 @@ export const PLAY = "PLAY";
 export const STOP = "STOP";
 export const CHANGE_TRANSPORT_STATE = "CHANGE_TRANSPORT_STATE";
 export const UPDATE_BEAT_BAR = "UPDATE_BEAT_BAR";
+export const CHANGE_BARS = "CHANGE_BARS";
+export const CHANGE_BEATS_PER_BAR = "CHANGE_BEATS_PER_BAR";
+export const CHANGE_TEMPO = "CHANGE_TEMPO";

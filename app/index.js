@@ -24,7 +24,8 @@ Promise.all([
     initMidiOutput()
 ]).then(showApp).catch(showError);
 
-function showError({ message }) {
+function showError(error) {
+    const message = error.message || error.toString();
     render(
         <ErrorMessage message={message} />,
         document.getElementById("root")

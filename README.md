@@ -2,6 +2,8 @@
 
 Control your MIDI software through predefined scenes.
 
+![SceneScreen v0.2.0 Screenshot](./docs/images/scenescreen-screenshot.png)
+
 ## Installation
 
 Prerequisites: [Node.js, at least version 6.2.2](https://nodejs.org/).

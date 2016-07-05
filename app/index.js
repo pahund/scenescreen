@@ -61,4 +61,5 @@ function showApp([config, midiOutput]) {
         </Provider>,
         document.getElementById("root")
     );
+    ipcRenderer.send("ready-to-rock");
 }

@@ -1,5 +1,10 @@
+/* eslint-disable no-console */
 import { app, BrowserWindow, Menu, dialog, ipcMain } from "electron";
 import fs from "fs";
+import os from "os";
+import p from "path";
+
+const configPath = p.join(os.homedir(), ".scenescreen");
 
 let menu;
 let template;
@@ -207,10 +212,41 @@ function open() {
     if (!files) {
         return;
     }
+    const path = files[0];
+    const fileName = path.replace(/^.*[\\\/]/, "");
 
+    loadFile({ fileName, path });
+
+    try {
+        fs.writeFileSync(configPath, JSON.stringify({ fileName, path }));
+    } catch (e) {
+        console.error(`Failed to write “${configPath}”:`, e);
+    }
+}
+
+function restoreLastFile() {
+    let lastFiles;
+    try {
+        lastFiles = JSON.parse(fs.readFileSync(configPath, "utf8"));
+    } catch (e) {
+        console.info("No config file found");
+    }
+
+    if (lastFiles) {
+        try {
+            fs.accessSync(lastFiles.path);
+            loadFile(lastFiles);
+        } catch (e) {
+            console.error(`Failed to access last file “${lastFiles.path}”`);
+        }
+    }
+}
+
+function loadFile({ fileName, path }) {
+    console.info(`loading file “${path}`);
     let data;
     try {
-        data = JSON.parse(fs.readFileSync(files[0], "utf8"));
+        data = JSON.parse(fs.readFileSync(path, "utf8"));
         if (!data.scenes) {
             throw new Error("invalid file contents");
         }
@@ -222,8 +258,6 @@ function open() {
         );
         return;
     }
-    const path = files[0];
-    const fileName = path.replace(/^.*[\\\/]/, "");
     mainWindow.webContents.send("file-open", data);
     mainWindow.setTitle(`SceneScreen – ${fileName}`);
 }
@@ -235,3 +269,5 @@ ipcMain.on("error", (event, data) => {
 ipcMain.on("open", () => {
     open();
 });
+
+ipcMain.on("ready-to-rock", restoreLastFile);

@@ -1,6 +1,6 @@
 ![SceneScreen](./docs/images/scenescreen_256x256.png)
 
-Music software for Mac OS X. Control your digital audio workstation or sequencer through 
+Free music software for Mac OS X. Control your digital audio workstation or sequencer through 
 predefined scenes. Works particularly well with [Propellerheads Reason](https://www.propellerheads.se/reason).
 
 * [Download the latest version](https://github.com/pahund/scenescreen/releases/download/v0.2.0/SceneScreen.v0.2.0.Mac.OSX.zip)

@@ -10,9 +10,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-        app.quit();
-    }
+    app.quit();
 });
 
 const installExtensions = async() => {
@@ -99,10 +97,14 @@ app.on("ready", async() => {
         }, {
             label: "File",
             submenu: [{
-                label: "Open",
+                label: "Open…",
                 accelerator: "Command+O",
                 selector: "open:",
                 click: open
+            }, {
+                label: "Close",
+                accelerator: "Command+W",
+                selector: "performClose:"
             }]
         }, {
             label: "View",
@@ -137,15 +139,6 @@ app.on("ready", async() => {
                 label: "Minimize",
                 accelerator: "Command+M",
                 selector: "performMiniaturize:"
-            }, {
-                label: "Close",
-                accelerator: "Command+W",
-                selector: "performClose:"
-            }, {
-                type: "separator"
-            }, {
-                label: "Bring All to Front",
-                selector: "arrangeInFront:"
             }]
         }];
 
@@ -155,7 +148,7 @@ app.on("ready", async() => {
         template = [{
             label: "&File",
             submenu: [{
-                label: "&Open",
+                label: "&Open…",
                 accelerator: "Ctrl+O",
                 click: open
             }, {
@@ -229,8 +222,10 @@ function open() {
         );
         return;
     }
+    const path = files[0];
+    const fileName = path.replace(/^.*[\\\/]/, "");
     mainWindow.webContents.send("file-open", data);
-    mainWindow.setTitle(`SceneScreen – ${files[0].replace(/^.*[\\\/]/, "")}`);
+    mainWindow.setTitle(`SceneScreen – ${fileName}`);
 }
 
 ipcMain.on("error", (event, data) => {

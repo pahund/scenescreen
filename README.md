@@ -62,6 +62,9 @@ MIT © [Patrick Hund](https://github.com/pahund)
 * Uses [redux-saga](https://github.com/yelouafi/redux-saga),
   published under the [MIT License](https://github.com/yelouafi/redux-saga/blob/master/LICENSE),
   © 2015 [Yassine Elouafi](https://github.com/yelouafi)
+* Uses [React Router](https://github.com/reactjs/react-router),
+  published under the [MIT License](https://github.com/reactjs/react-router/blob/master/LICENSE.md),
+  © 2015-present [Ryan Florence](https://github.com/ryanflorence), [Michael Jackson](https://github.com/mjackson)
 * Uses [webpack](https://github.com/webpack/webpack),
   published under the [MIT License](https://github.com/webpack/webpack/blob/master/LICENSE),
   © 2012–2016 [Tobias Koppers](https://github.com/sokra)
@@ -76,6 +79,11 @@ MIT © [Patrick Hund](https://github.com/pahund)
 * Uses [Font Awesome](https://github.com/FortAwesome/Font-Awesome)
   by [Dave Gandy](https://github.com/davegandy),
   [license note](https://github.com/FortAwesome/Font-Awesome#license)
+* Uses [React Inline Edit Kit](https://github.com/kaivi/riek),
+  published under the [MIT License](https://github.com/kaivi/riek/blob/master/LICENSE),
+  © 2016 [Kai Vik](https://github.com/kaivi)
+* Uses [Yanone Kaffeesatz](https://www.yanone.de/fonts/kaffeesatz/) font face,
+  © 2004 Jan Gerner
 * Portons of the code is based on [Metronome.js](https://gist.github.com/nick-thompson/4551106),
   published under the MIT License,
   © 2012 [Nick Thompson](https://gist.github.com/nick-thompson)

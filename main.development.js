@@ -1,14 +1,10 @@
 /* eslint-disable no-console */
 import { app, BrowserWindow, Menu, dialog, ipcMain } from "electron";
-import fs from "fs";
-import os from "os";
-import p from "path";
-
-const configPath = p.join(os.homedir(), ".scenescreen");
-
-let menu;
-let template;
-let mainWindow = null;
+import open from "./app/electron/menu/open";
+import restoreLastFile from "./app/electron/restoreLastFile";
+import initMacMenu from "./app/electron/menu/initMacMenu";
+import initWinMenu from "./app/electron/menu/initWinMenu";
+import installExtensions from "./app/electron/installExtensions";
 
 if (process.env.NODE_ENV === "development") {
     require("electron-debug")(); // eslint-disable-line global-require
@@ -18,26 +14,10 @@ app.on("window-all-closed", () => {
     app.quit();
 });
 
-const installExtensions = async() => {
-    if (process.env.NODE_ENV === "development") {
-        const installer =
-            require("electron-devtools-installer"); // eslint-disable-line global-require
-        const extensions = [
-            "REACT_DEVELOPER_TOOLS",
-            "REDUX_DEVTOOLS"
-        ];
-        for (const name of extensions) {
-            try {
-                await installer.default(installer[name]);
-            } catch (e) {} // eslint-disable-line no-empty
-        }
-    }
-};
-
 app.on("ready", async() => {
     await installExtensions();
 
-    mainWindow = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         show: false,
         width: 1024,
         height: 728,
@@ -72,202 +52,17 @@ app.on("ready", async() => {
     }
 
     if (process.platform === "darwin") {
-        template = [{
-            label: "SceneScreen",
-            submenu: [{
-                label: "About SceneScreen",
-                selector: "orderFrontStandardAboutPanel:"
-            }, {
-                type: "separator"
-            }, {
-                label: "Hide SceneScreen",
-                accelerator: "Command+H",
-                selector: "hide:"
-            }, {
-                label: "Hide Others",
-                accelerator: "Command+Shift+H",
-                selector: "hideOtherApplications:"
-            }, {
-                label: "Show All",
-                selector: "unhideAllApplications:"
-            }, {
-                type: "separator"
-            }, {
-                label: "Quit",
-                accelerator: "Command+Q",
-                click() {
-                    app.quit();
-                }
-            }]
-        }, {
-            label: "File",
-            submenu: [{
-                label: "Open…",
-                accelerator: "Command+O",
-                selector: "open:",
-                click: open
-            }, {
-                label: "Close",
-                accelerator: "Command+W",
-                selector: "performClose:"
-            }]
-        }, {
-            label: "View",
-            submenu: (process.env.NODE_ENV === "development") ? [{
-                label: "Reload",
-                accelerator: "Command+R",
-                click() {
-                    mainWindow.webContents.reload();
-                }
-            }, {
-                label: "Toggle Full Screen",
-                accelerator: "Ctrl+Command+F",
-                click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                }
-            }, {
-                label: "Toggle Developer Tools",
-                accelerator: "Alt+Command+I",
-                click() {
-                    mainWindow.toggleDevTools();
-                }
-            }] : [{
-                label: "Toggle Full Screen",
-                accelerator: "Ctrl+Command+F",
-                click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                }
-            }]
-        }, {
-            label: "Window",
-            submenu: [{
-                label: "Minimize",
-                accelerator: "Command+M",
-                selector: "performMiniaturize:"
-            }]
-        }];
-
-        menu = Menu.buildFromTemplate(template);
-        Menu.setApplicationMenu(menu);
+        initMacMenu(mainWindow);
     } else {
-        template = [{
-            label: "&File",
-            submenu: [{
-                label: "&Open…",
-                accelerator: "Ctrl+O",
-                click: open
-            }, {
-                label: "&Close",
-                accelerator: "Ctrl+W",
-                click() {
-                    mainWindow.close();
-                }
-            }]
-        }, {
-            label: "&View",
-            submenu: (process.env.NODE_ENV === "development") ? [{
-                label: "&Reload",
-                accelerator: "Ctrl+R",
-                click() {
-                    mainWindow.webContents.reload();
-                }
-            }, {
-                label: "Toggle &Full Screen",
-                accelerator: "F11",
-                click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                }
-            }, {
-                label: "Toggle &Developer Tools",
-                accelerator: "Alt+Ctrl+I",
-                click() {
-                    mainWindow.toggleDevTools();
-                }
-            }] : [{
-                label: "Toggle &Full Screen",
-                accelerator: "F11",
-                click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                }
-            }]
-        }];
-        menu = Menu.buildFromTemplate(template);
-        mainWindow.setMenu(menu);
+        initWinMenu(mainWindow);
     }
+
+    ipcMain.on("error", (event, data) => {
+        dialog.showErrorBox("SceneScreen Error", data.message);
+    });
+
+    ipcMain.on("open", () => open(mainWindow));
+
+    ipcMain.on("ready-to-rock", () => restoreLastFile(mainWindow));
 });
 
-function open() {
-    const options = {
-        title: "SceneScreen: Open",
-        properties: [
-            "openFile"
-        ],
-        filters: [
-            { name: "SceneScreen Files", extensions: ["scsc"] }
-        ]
-    };
-
-    const files = dialog.showOpenDialog(options);
-
-    if (!files) {
-        return;
-    }
-    const path = files[0];
-    const fileName = path.replace(/^.*[\\\/]/, "");
-
-    loadFile({ fileName, path });
-
-    try {
-        fs.writeFileSync(configPath, JSON.stringify({ fileName, path }));
-    } catch (e) {
-        console.error(`Failed to write “${configPath}”:`, e);
-    }
-}
-
-function restoreLastFile() {
-    let lastFiles;
-    try {
-        lastFiles = JSON.parse(fs.readFileSync(configPath, "utf8"));
-    } catch (e) {
-        console.info("No config file found");
-    }
-
-    if (lastFiles) {
-        try {
-            fs.accessSync(lastFiles.path);
-            loadFile(lastFiles);
-        } catch (e) {
-            console.error(`Failed to access last file “${lastFiles.path}”`);
-        }
-    }
-}
-
-function loadFile({ fileName, path }) {
-    console.info(`loading file “${path}`);
-    let data;
-    try {
-        data = JSON.parse(fs.readFileSync(path, "utf8"));
-        if (!data.scenes) {
-            throw new Error("invalid file contents");
-        }
-    } catch (e) {
-        dialog.showErrorBox(
-            "SceneScreen Error",
-            "Could not read the file you specified – are you sure it was created " +
-            "with SceneScreen?"
-        );
-        return;
-    }
-    mainWindow.webContents.send("file-open", data);
-    mainWindow.setTitle(`SceneScreen – ${fileName}`);
-}
-
-ipcMain.on("error", (event, data) => {
-    dialog.showErrorBox("SceneScreen Error", data.message);
-});
-
-ipcMain.on("open", () => {
-    open();
-});
-
-ipcMain.on("ready-to-rock", restoreLastFile);

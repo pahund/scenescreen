@@ -1,29 +1,37 @@
-/* eslint-disable no-console */
 import { app, BrowserWindow, Menu, dialog, ipcMain } from "electron";
 import open from "./app/electron/menu/open";
 import restoreLastFile from "./app/electron/restoreLastFile";
 import initMacMenu from "./app/electron/menu/initMacMenu";
 import initWinMenu from "./app/electron/menu/initWinMenu";
 import installExtensions from "./app/electron/installExtensions";
+import loadConfig from "./app/electron/config/loadConfig";
+import updateConfig from "./app/electron/config/updateConfig";
 
 if (process.env.NODE_ENV === "development") {
     require("electron-debug")(); // eslint-disable-line global-require
 }
 
-app.on("window-all-closed", () => {
-    app.quit();
-});
-
 app.on("ready", async() => {
     await installExtensions();
 
+    let config = loadConfig();
+
+    if (!config) {
+        config = {
+            width: 660,
+            height: 610
+        };
+    }
+
     const mainWindow = new BrowserWindow({
         show: false,
-        width: 1024,
-        height: 728,
         acceptFirstMouse: true,
         minWidth: 175,
-        minHeight: 220
+        minHeight: 220,
+        width: config.width,
+        height: config.height,
+        x: config.x,
+        y: config.y
     });
 
     mainWindow.loadURL(`file://${__dirname}/app/app.html`);
@@ -31,8 +39,16 @@ app.on("ready", async() => {
     mainWindow.webContents.on("did-finish-load", () => {
         mainWindow.show();
         mainWindow.focus();
+        if (config.fullscreen) {
+            mainWindow.setFullScreen(true);
+        }
     });
 
+    mainWindow.on("close", () => {
+        const { x, y, width, height } = mainWindow.getBounds();
+        const fullscreen = mainWindow.isFullScreen();
+        updateConfig({ x, y, width, height, fullscreen });
+    });
     mainWindow.on("closed", () => {
         app.quit();
     });
@@ -52,7 +68,7 @@ app.on("ready", async() => {
     }
 
     if (process.platform === "darwin") {
-        initMacMenu(mainWindow);
+        initMacMenu(app, mainWindow);
     } else {
         initWinMenu(mainWindow);
     }

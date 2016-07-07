@@ -7,7 +7,7 @@
 import { Menu } from "electron";
 import open from "./open";
 
-export default appWindow => {
+export default (app, appWindow) => {
     const template = [{
         label: "SceneScreen",
         submenu: [{

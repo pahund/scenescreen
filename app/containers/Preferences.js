@@ -12,7 +12,7 @@ import Preferences from "../components/Preferences";
 const enhance = compose(
     connect(
         state => ({
-            midiOutput: state.midiOutput
+            midi: state.midi
         })
     ),
     withHandlers({

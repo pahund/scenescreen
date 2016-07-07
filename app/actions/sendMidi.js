@@ -5,7 +5,9 @@
  * @since 01 Jul 2016
  */
 import { SEND_MIDI } from ".";
-export default messages => ({
+
+export default (messages, scheduled = true) => ({
     type: SEND_MIDI,
-    messages
+    messages,
+    scheduled
 });

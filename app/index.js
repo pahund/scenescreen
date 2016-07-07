@@ -11,18 +11,19 @@ import ErrorMessage from "./components/ErrorMessage";
 import calculateLayoutColumns from "./utils/calculateLayoutColumns";
 import resize from "./actions/resize";
 import navigate from "./actions/navigate";
+import sendMidi from "./actions/sendMidi";
 import "./app.global.css";
 import openFile from "./actions/openFile";
 import clockMessage from "./midi/clockMessage";
 import { STOPPED } from "./actions/changeTransportState";
 import Metronome from "./midi/metronome";
-import initMidiOutput from "./midi/initMidiOutput";
+import initMidiOutputs from "./midi/initMidiOutputs";
 import initConfig from "./config/initConfig";
 import updateBeatBar from "./actions/updateBeatBar";
 
 Promise.all([
     initConfig(),
-    initMidiOutput()
+    initMidiOutputs()
 ]).then(showApp).catch(showError);
 
 function showError(error) {
@@ -33,12 +34,16 @@ function showError(error) {
     );
 }
 
-function showApp([config, midiOutput]) {
+function showApp([config, outputs]) {
+    const selectedOutput = outputs.values().next().value.id;
     const metronome = new Metronome(config);
 
     const store = configureStore({
         config,
-        midiOutput,
+        midi: {
+            outputs,
+            selectedOutput
+        },
         transport: {
             metronome,
             beat: 1,
@@ -51,8 +56,9 @@ function showApp([config, midiOutput]) {
         }
     });
 
-    metronome.on("position", () => midiOutput.send(clockMessage.tick));
+    metronome.on("position", () => store.dispatch(sendMidi([clockMessage.tick], false)));
     metronome.on("beat", (bar, beat) => store.dispatch(updateBeatBar(bar, beat)));
+
     const history = syncHistoryWithStore(hashHistory, store);
     window.onresize = () => store.dispatch(resize());
     ipcRenderer.on("file-open", (event, data) => store.dispatch(openFile(data)));

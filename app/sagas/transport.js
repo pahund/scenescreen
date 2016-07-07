@@ -12,7 +12,8 @@ import clockMessage from "../midi/clockMessage";
 import updateBeatBar from "../actions/updateBeatBar";
 
 function *transport(getState, { type }) {
-    const { midiOutput, transport: { metronome, state } } = getState();
+    const { midi: { outputs, selectedOutput }, transport: { metronome, state } } = getState();
+    const midiOutput = outputs.get(selectedOutput);
     if (type === PLAY) {
         switch (state) {
             case STOPPED:

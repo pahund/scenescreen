@@ -2,11 +2,11 @@ import React from "react";
 import { Route, IndexRoute } from "react-router";
 import App from "./components/App";
 import Home from "./containers/Home";
-import Settings from "./components/Settings";
+import Preferences from "./containers/Preferences";
 
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="/settings" component={Settings} />
+        <Route path="/preferences" component={Preferences} />
     </Route>
 );

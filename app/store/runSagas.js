@@ -11,6 +11,7 @@ import requestFileOpenDialog from "../sagas/requestFileOpenDialog";
 import transport from "../sagas/transport";
 import scheduleScene from "../sagas/scheduleScene";
 import changeConfig from "../sagas/changeConfig";
+import navigate from "../sagas/navigate";
 
 export default (sagaMiddleware, store) => {
     sagaMiddleware.run(sendMidi, store.getState);
@@ -20,4 +21,5 @@ export default (sagaMiddleware, store) => {
     sagaMiddleware.run(transport, store.getState);
     sagaMiddleware.run(scheduleScene, store.getState);
     sagaMiddleware.run(changeConfig, store.getState);
+    sagaMiddleware.run(navigate);
 };

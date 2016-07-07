@@ -10,6 +10,7 @@ import configureStore from "./store/configureStore";
 import ErrorMessage from "./components/ErrorMessage";
 import calculateLayoutColumns from "./utils/calculateLayoutColumns";
 import resize from "./actions/resize";
+import navigate from "./actions/navigate";
 import "./app.global.css";
 import openFile from "./actions/openFile";
 import clockMessage from "./midi/clockMessage";
@@ -55,6 +56,7 @@ function showApp([config, midiOutput]) {
     const history = syncHistoryWithStore(hashHistory, store);
     window.onresize = () => store.dispatch(resize());
     ipcRenderer.on("file-open", (event, data) => store.dispatch(openFile(data)));
+    ipcRenderer.on("go-to-preferences", () => store.dispatch(navigate("/preferences")));
     render(
         <Provider store={store}>
             <Router history={history} routes={routes} />

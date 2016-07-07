@@ -72,7 +72,7 @@ html {
 
 body {
     position: relative;
-    color: white;
+    color: #b0b0b0;
     height: 100vh;
     background-color: #323232;
     font-family: Yanone Kaffeesatz, sans-serif;
@@ -81,12 +81,21 @@ body {
     margin: 0;
 }
 
-h2 {
-    margin: 0;
+h1 {
+    margin: -8px -8px 8px -8px;
     font-size: 2.25rem;
     font-weight: bold;
-    letter-spacing: -.025em;
-    color: #fff;
+    border-bottom: 1px solid #696969;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 p {

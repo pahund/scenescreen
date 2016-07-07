@@ -1,0 +1,7 @@
+.buttonTopRight {
+    margin: -8px -5px -8px -8px;
+    padding: 8px;
+}
+.buttonTopRight:hover {
+    background-color: #515151;
+}

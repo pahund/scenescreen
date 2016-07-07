@@ -6,6 +6,7 @@
  */
 import { Menu } from "electron";
 import open from "./open";
+import preferences from "./preferences";
 
 export default (app, appWindow) => {
     const template = [{
@@ -13,6 +14,10 @@ export default (app, appWindow) => {
         submenu: [{
             label: "About SceneScreen",
             selector: "orderFrontStandardAboutPanel:"
+        }, {
+            label: "Preferences…",
+            accelerator: "Command+,",
+            click: () => preferences(appWindow)
         }, {
             type: "separator"
         }, {
@@ -31,9 +36,7 @@ export default (app, appWindow) => {
         }, {
             label: "Quit",
             accelerator: "Command+Q",
-            click() {
-                app.quit();
-            }
+            click: () => app.quit()
         }]
     }, {
         label: "File",
@@ -52,27 +55,19 @@ export default (app, appWindow) => {
         submenu: (process.env.NODE_ENV === "development") ? [{
             label: "Reload",
             accelerator: "Command+R",
-            click() {
-                appWindow.webContents.reload();
-            }
+            click: () => appWindow.webContents.reload()
         }, {
             label: "Toggle Full Screen",
             accelerator: "Ctrl+Command+F",
-            click() {
-                appWindow.setFullScreen(!appWindow.isFullScreen());
-            }
+            click: () => appWindow.setFullScreen(!appWindow.isFullScreen())
         }, {
             label: "Toggle Developer Tools",
             accelerator: "Alt+Command+I",
-            click() {
-                appWindow.toggleDevTools();
-            }
+            click: () => appWindow.toggleDevTools()
         }] : [{
             label: "Toggle Full Screen",
             accelerator: "Ctrl+Command+F",
-            click() {
-                appWindow.setFullScreen(!appWindow.isFullScreen());
-            }
+            click: () => appWindow.setFullScreen(!appWindow.isFullScreen())
         }]
     }, {
         label: "Window",

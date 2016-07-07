@@ -1,7 +1,41 @@
+.button {
+    margin: 4px;
+    padding: 4px;
+    text-align: center;
+}
+
 .buttonTopRight {
     margin: -8px -5px -8px -8px;
     padding: 8px;
 }
-.buttonTopRight:hover {
+
+.button:hover {
     background-color: #515151;
+}
+
+.prefRow {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-weight: 200;
+    display: flex;
+    max-width: 400px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.prefRow > * {
+    flex: 0 0 50%;
+    min-width: 170px;
+}
+
+.fieldWithButton {
+    display: flex;
+    align-items: center;
+}
+
+.fieldWithButton > *:first-child {
+    flex: 1 0 auto;
+}
+
+.fieldWithButton > *:last-child {
+    flex: 0 1 auto;
 }

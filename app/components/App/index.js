@@ -1,4 +1,16 @@
-import React from "react";
+import React, { PropTypes } from "react";
 
-export default props => <div {...props} />;
+const App = ({ children }) => (
+    <div>
+        {children}
+    </div>
+);
 
+App.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+};
+
+export default App;

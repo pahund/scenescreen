@@ -1,3 +1,9 @@
+# 0.3.0 – MIDI Output Bus Selection
+
+## Features
+
+* New preferences page lets you select the MIDI output bus to use
+
 # 0.2.0 – Running in a Loop
 
 ## Features

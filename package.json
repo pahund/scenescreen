@@ -1,7 +1,7 @@
 {
   "name": "scenescreen",
   "productName": "SceneScreen",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Control your MIDI software through predefined scenes",
   "main": "main.js",
   "scripts": {

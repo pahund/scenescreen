@@ -39,3 +39,8 @@
 .fieldWithButton > *:last-child {
     flex: 0 1 auto;
 }
+
+.error {
+    color: white;
+    background-color: red;
+}

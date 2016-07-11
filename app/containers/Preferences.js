@@ -8,6 +8,8 @@ import { compose, withHandlers } from "recompose";
 import { connect } from "react-redux";
 import navigate from "../actions/navigate";
 import Preferences from "../components/Preferences";
+import changeMidiOutput from "../actions/changeMidiOutput";
+import refreshMidiOutputList from "../actions/refreshMidiOutputList";
 
 const enhance = compose(
     connect(
@@ -16,6 +18,9 @@ const enhance = compose(
         })
     ),
     withHandlers({
+        changeMidiOutput: ({ dispatch }) => event =>
+            dispatch(changeMidiOutput(event.target.value)),
+        refreshMidiOutputList: ({ dispatch }) => () => dispatch(refreshMidiOutputList()),
         close: ({ dispatch }) => () => dispatch(navigate("/"))
     })
 );

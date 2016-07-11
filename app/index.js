@@ -18,6 +18,7 @@ import clockMessage from "./midi/clockMessage";
 import { STOPPED } from "./actions/changeTransportState";
 import Metronome from "./midi/metronome";
 import initMidiOutputs from "./midi/initMidiOutputs";
+import validateMidiOutput from "./midi/validateMidiOutput";
 import initConfig from "./config/initConfig";
 import updateBeatBar from "./actions/updateBeatBar";
 
@@ -35,14 +36,13 @@ function showError(error) {
 }
 
 function showApp([config, outputs]) {
-    const selectedOutput = outputs.values().next().value.id;
     const metronome = new Metronome(config);
 
     const store = configureStore({
         config,
         midi: {
             outputs,
-            selectedOutput
+            selectedOutput: config.midiOutputId
         },
         transport: {
             metronome,
@@ -55,6 +55,8 @@ function showApp([config, outputs]) {
             columns: calculateLayoutColumns()
         }
     });
+
+    validateMidiOutput(store);
 
     metronome.on("position", () => store.dispatch(sendMidi([clockMessage.tick], false)));
     metronome.on("beat", (bar, beat) => store.dispatch(updateBeatBar(bar, beat)));

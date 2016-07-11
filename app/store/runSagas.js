@@ -12,6 +12,7 @@ import transport from "../sagas/transport";
 import scheduleScene from "../sagas/scheduleScene";
 import changeConfig from "../sagas/changeConfig";
 import navigate from "../sagas/navigate";
+import refreshMidiOutputList from "../sagas/refreshMidiOutputList";
 
 export default (sagaMiddleware, store) => {
     sagaMiddleware.run(sendMidi, store.getState);
@@ -22,4 +23,5 @@ export default (sagaMiddleware, store) => {
     sagaMiddleware.run(scheduleScene, store.getState);
     sagaMiddleware.run(changeConfig, store.getState);
     sagaMiddleware.run(navigate);
+    sagaMiddleware.run(refreshMidiOutputList, store.getState);
 };

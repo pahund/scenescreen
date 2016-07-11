@@ -5,8 +5,7 @@
  * @since 01 Jul 2016
  */
 import {
-    UPDATE_MIDI_CONFIG,
-    REFRESH_MIDI_OUTPUT_LIST
+    UPDATE_MIDI_CONFIG
 } from "../actions";
 
 export default (state = {}, action) => {

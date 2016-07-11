@@ -1,0 +1,36 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.large {
+    font-size: 1.2rem;
+    width: 35px;
+    height: 55px;
+}
+
+.medium {
+    font-size: 1rem;
+    margin: 4px;
+    padding: 4px;
+}
+
+.button.active {
+    background-color: #bebebe;
+    color: #323232;
+}
+
+.button.pressed {
+    background-color: #dedede !important;
+    color: #323232;
+}
+
+.button:hover {
+    background-color: #515151;
+}
+
+.button.active:hover {
+    background-color: #c8c8c8;
+    color: #323232;
+}

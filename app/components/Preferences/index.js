@@ -7,6 +7,7 @@
 import React, { PropTypes } from "react";
 import styles from "./styles.css";
 import classnames from "classnames";
+import Button from "../Button";
 
 const Preferences = ({
     close,
@@ -17,8 +18,10 @@ const Preferences = ({
     <div>
         <h1>
             <span>Preferences</span>
-            <i className={classnames("fa fa-close", styles.button, styles.buttonTopRight)}
-               onClick={close} />
+            <Button className={styles.buttonTopRight}
+                    size="large"
+                    icon="close"
+                    handle={close} />
         </h1>
         <div className={styles.prefRow}>
             <label htmlFor="midiOutput">MIDI output bus</label>
@@ -36,8 +39,9 @@ const Preferences = ({
                         ))
                     }
                 </select>
-                <i className={classnames("fa fa-refresh", styles.button)}
-                   onClick={refreshMidiOutputList}></i>
+                <Button handle={refreshMidiOutputList}
+                        animate
+                        icon="refresh" />
             </div>
         </div>
     </div>

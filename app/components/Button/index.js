@@ -15,7 +15,7 @@ class Button extends Component {
             pressed: false,
             spinning: false
         };
-        this.bindHandlers("mouseDown", "mouseUp");
+        this.bindHandlers("mouseDown", "mouseUp", "mouseLeave");
     }
 
     bindHandlers(...methodNames) {
@@ -32,6 +32,10 @@ class Button extends Component {
         if (this.props.instant) {
             this.props.handle();
         }
+    }
+
+    mouseLeave() {
+        this.setState({ ...this.state, pressed: false });
     }
 
     mouseUp() {
@@ -59,6 +63,7 @@ class Button extends Component {
         return (
             <div className={wrapperClassName}
                  onMouseDown={this.mouseDown}
+                 onMouseLeave={this.mouseLeave}
                  onMouseUp={this.mouseUp}>
                 <i className={iconClassName} />
             </div>

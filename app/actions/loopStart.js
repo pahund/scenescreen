@@ -1,11 +1,11 @@
 /**
- * resize.js
+ * loopStart.js
  *
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
- * @since 01 Jul 2016
+ * @since 12 Jul 2016
  */
-import { RESIZE } from ".";
+import { LOOP_START } from ".";
 
 export default () => ({
-    type: RESIZE
+    type: LOOP_START
 });

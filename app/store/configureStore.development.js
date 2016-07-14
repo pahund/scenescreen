@@ -1,22 +1,23 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import createLogger from "redux-logger";
 import { hashHistory } from "react-router";
 import { routerMiddleware } from "react-router-redux";
 import createSagaMiddleware from "redux-saga";
 import rootReducer from "../reducers";
 import runSagas from "./runSagas";
-
-const logger = createLogger({
-    level: "info",
-    collapsed: true
-});
+import {
+    SEND_MIDI
+} from "../actions";
 
 const router = routerMiddleware(hashHistory);
 const sagaMiddleware = createSagaMiddleware();
 
 const enhancer = compose(
-    applyMiddleware(router, logger, sagaMiddleware),
-    window.devToolsExtension ? window.devToolsExtension() : noop => noop
+    applyMiddleware(router, sagaMiddleware),
+    window.devToolsExtension ? window.devToolsExtension({
+        actionsBlacklist: [
+            SEND_MIDI
+        ]
+    }) : noop => noop
 );
 
 export default initialState => {

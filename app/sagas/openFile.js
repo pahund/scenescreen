@@ -13,12 +13,24 @@ import { ipcRenderer } from "electron";
 
 function *openFile({ data: { scenes } }) {
     try {
+        let selectedSceneName;
         const populatedScenes = scenes.map((scene, sceneIndex) => {
             const populatedScene = {
                 name: scene.name || `Scene ${sceneIndex + 1}`,
                 color: scene["text-color"] || "white",
-                bgColor: scene["background-color"] || "darkgray"
+                bgColor: scene["background-color"] || "darkgray",
+                selected: scene.selected || false
             };
+            if (populatedScene.selected) {
+                if (selectedSceneName !== undefined) {
+                    throw new Error(
+                        `Scene “${populatedScene.name}” has property selected, but a previous ` +
+                        `scene “${selectedSceneName}” was already marked as selected`
+                    );
+                }
+                selectedSceneName = populatedScene.name;
+            }
+
             const messages = [];
             if (!scene.channels) {
                 throw new Error(`No channels specified for scene “${populatedScene.name}”`);
@@ -59,6 +71,9 @@ function *openFile({ data: { scenes } }) {
             populatedScene.messages = messages;
             return populatedScene;
         });
+        if (selectedSceneName === undefined) {
+            populatedScenes[0].selected = true;
+        }
         yield put(updateScenes(populatedScenes));
     } catch (e) {
         ipcRenderer.send(

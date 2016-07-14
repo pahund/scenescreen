@@ -7,8 +7,8 @@
  * @since 11 Jul 2016
  */
 import { should } from "chai";
-import { CHANGE_TEMPO } from "../../app/actions";
-import changeTempo from "../../app/actions/changeTempo";
+import { CHANGE_TEMPO } from "../../../app/actions";
+import changeTempo from "../../../app/actions/performanceSettings/changeTempo";
 
 should();
 

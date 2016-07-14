@@ -23,7 +23,9 @@ const Transport = ({
     changeBeatsPerBar,
     changeTempo,
     play,
-    stop
+    stop,
+    toggleAutopilot,
+    autopilotActive
 }) => (
     <div className={styles.transport}>
         <div className={styles.buttonWrap}>
@@ -66,19 +68,28 @@ const Transport = ({
                     active={state === PLAYING}
                     size="large" />
         </div>
+        <div className={styles.buttonWrap}>
+            <Button handle={toggleAutopilot}
+                    instant
+                    icon="random"
+                    active={autopilotActive}
+                    size="large" />
+        </div>
     </div>
 );
 
 Transport.propTypes = {
     play: PropTypes.func.isRequired,
     stop: PropTypes.func.isRequired,
+    toggleAutopilot: PropTypes.func.isRequired,
     changeBars: PropTypes.func.isRequired,
     changeBeatsPerBar: PropTypes.func.isRequired,
     changeTempo: PropTypes.func.isRequired,
     state: PropTypes.string.isRequired,
     bars: PropTypes.number.isRequired,
     tempo: PropTypes.number.isRequired,
-    beatsPerBar: PropTypes.number.isRequired
+    beatsPerBar: PropTypes.number.isRequired,
+    autopilotActive: PropTypes.bool.isRequired
 };
 
 export default Transport;

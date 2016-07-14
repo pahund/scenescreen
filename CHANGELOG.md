@@ -1,3 +1,16 @@
+# 0.4.0 – Autopilot
+
+## Features
+
+* New Autopilot toggle button in the transport section makes the program switch scenes automatically
+* Autopilot toggle on/off is persistent across sessions, just like tempo, number of bars and beats
+  per bar
+* One of the scenes is always selected after a file has been loaded
+    * specify selected scene in your JSON file by adding property “selected: true” to one of your
+      scenes
+    * if no scene in your file has property “selected: true”, the first scene is selected by
+      default
+
 # 0.3.0 – MIDI Output Bus Selection
 
 ## Features
@@ -10,7 +23,7 @@
 
 * Transport bar that lets you start/stop your sequencer software that is connected via MIDI sync,
   running a loop of arbitrary length
-* Configure tempo, number of bars and beats per minute by clicking on the numbers in the transport bar
+* Configure tempo, number of bars and beats per bar by clicking on the numbers in the transport bar
 * While the loop is running, when you click to select a scene, the scene change happens when the
   loop starts over
 * Previously loaded file restored at startup

@@ -9,5 +9,6 @@ export default {
     bars: 4,
     beatsPerBar: 4,
     resolution: 24,
-    scheduleOffset: -1
+    scheduleOffset: -1,
+    autopilotActive: false
 };

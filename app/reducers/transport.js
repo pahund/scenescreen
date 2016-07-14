@@ -6,7 +6,8 @@
  */
 import {
     CHANGE_TRANSPORT_STATE,
-    UPDATE_BEAT_BAR
+    UPDATE_BEAT_BAR,
+    TOGGLE_AUTOPILOT
 } from "../actions";
 
 export default (state = {}, action) => {
@@ -21,6 +22,11 @@ export default (state = {}, action) => {
                 ...state,
                 bar: action.bar,
                 beat: action.beat
+            };
+        case TOGGLE_AUTOPILOT:
+            return {
+                ...state,
+                autopilotActive: !state.autopilotActive
             };
         default:
     }

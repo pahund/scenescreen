@@ -7,7 +7,7 @@
 import { takeLatest, delay } from "redux-saga";
 import { call, put, cancelled } from "redux-saga/effects";
 import { SCHEDULE_SCENE } from "../actions";
-import blinkScene from "../actions/blinkScene";
+import blinkScene from "../actions/ui/blinkScene";
 import selectScene from "../actions/selectScene";
 
 function *scheduleScene(getState, { sceneIndex }) {

@@ -32,6 +32,7 @@
       "name": "Beat Bass",
       "text-color": "black",
       "background-color": "hotpink",
+      "selected": true,
       "channels": {
         "1": {
           "device": "combinator",

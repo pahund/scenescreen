@@ -7,8 +7,8 @@
  * @since 11 Jul 2016
  */
 import { should } from "chai";
-import { CHANGE_BEATS_PER_BAR } from "../../app/actions";
-import changeBeatsPerBar from "../../app/actions/changeBeatsPerBar";
+import { CHANGE_BEATS_PER_BAR } from "../../../app/actions";
+import changeBeatsPerBar from "../../../app/actions/performanceSettings/changeBeatsPerBar";
 
 should();
 

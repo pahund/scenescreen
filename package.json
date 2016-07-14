@@ -1,7 +1,7 @@
 {
   "name": "scenescreen",
   "productName": "SceneScreen",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Control your MIDI software through predefined scenes",
   "main": "main.js",
   "scripts": {
@@ -87,7 +87,6 @@
     "mocha": "^2.5.3",
     "node-libs-browser": "^1.0.0",
     "react-addons-test-utils": "^15.2.0",
-    "redux-logger": "^2.6.1",
     "selenium-webdriver": "^2.53.2",
     "sinon": "^1.17.4",
     "strip-bom": "^3.0.0",

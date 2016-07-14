@@ -5,8 +5,8 @@
  * @since 11 Jul 2016
  */
 import { should } from "chai";
-import { BLINK_SCENE } from "../../app/actions";
-import blinkScene from "../../app/actions/blinkScene";
+import { BLINK_SCENE } from "../../../app/actions";
+import blinkScene from "../../../app/actions/ui/blinkScene";
 
 should();
 

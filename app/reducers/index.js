@@ -5,6 +5,7 @@ import scenes from "./scenes";
 import layout from "./layout";
 import transport from "./transport";
 import config from "./config";
+import test from "./test";
 
 const rootReducer = combineReducers({
     routing,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     scenes,
     layout,
     transport,
-    config
+    config,
+    test
 });
 
 export default rootReducer;

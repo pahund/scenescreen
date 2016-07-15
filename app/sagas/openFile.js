@@ -6,29 +6,29 @@
  */
 import { takeLatest } from "redux-saga";
 import { put } from "redux-saga/effects";
-import { OPEN_FILE } from "../actions";
+import { OPEN_FILE, RELOAD_FILE } from "../actions";
 import updateScenes from "../actions/updateScenes";
 import getCombinatorMessages from "../midi/getCombinatorMessages";
 import { ipcRenderer } from "electron";
+import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
 
-function *openFile({ data: { scenes } }) {
+function *openFile(getState, { type, data: { scenes } }) {
+    let selectedSceneIndex;
     try {
-        let selectedSceneName;
         const populatedScenes = scenes.map((scene, sceneIndex) => {
             const populatedScene = {
                 name: scene.name || `Scene ${sceneIndex + 1}`,
                 color: scene["text-color"] || "white",
-                bgColor: scene["background-color"] || "darkgray",
-                selected: scene.selected || false
+                bgColor: scene["background-color"] || "darkgray"
             };
-            if (populatedScene.selected) {
-                if (selectedSceneName !== undefined) {
+            if (scene.selected) {
+                if (selectedSceneIndex !== undefined) {
                     throw new Error(
-                        `Scene “${populatedScene.name}” has property selected, but a previous ` +
-                        `scene “${selectedSceneName}” was already marked as selected`
+                        `Scene ${populatedScene.name}” has property selected, but a previous ` +
+                        "scene was already marked as selected"
                     );
                 }
-                selectedSceneName = populatedScene.name;
+                selectedSceneIndex = sceneIndex;
             }
 
             const messages = [];
@@ -71,9 +71,14 @@ function *openFile({ data: { scenes } }) {
             populatedScene.messages = messages;
             return populatedScene;
         });
-        if (selectedSceneName === undefined) {
-            populatedScenes[0].selected = true;
+        if (selectedSceneIndex === undefined) {
+            selectedSceneIndex = 0;
         }
+        if (type === RELOAD_FILE) {
+            selectedSceneIndex = getCurrentSceneIndex(getState().scenes);
+        }
+        scenes[selectedSceneIndex].selected = true;
+
         yield put(updateScenes(populatedScenes));
     } catch (e) {
         ipcRenderer.send(
@@ -83,7 +88,7 @@ function *openFile({ data: { scenes } }) {
     }
 }
 
-export default function *() {
-    yield* takeLatest(OPEN_FILE, openFile);
+export default function *(getState) {
+    yield* takeLatest([OPEN_FILE, RELOAD_FILE], openFile, getState);
 }
 

@@ -4,6 +4,7 @@
       "name": "Beat",
       "text-color": "black",
       "background-color": "lime",
+      "selected": true,
       "channels": {
         "1": {
           "device": "combinator",
@@ -32,7 +33,6 @@
       "name": "Beat Bass",
       "text-color": "black",
       "background-color": "hotpink",
-      "selected": true,
       "channels": {
         "1": {
           "device": "combinator",

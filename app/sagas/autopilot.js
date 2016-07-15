@@ -10,16 +10,7 @@ import { call, put } from "redux-saga/effects";
 import { LOOP_START, TOGGLE_AUTOPILOT } from "../actions";
 import { PLAYING } from "../actions/changeTransportState";
 import scheduleScene from "../actions/scheduleScene";
-
-function getCurrentSceneIndex(scenes) {
-    let currentSceneIndex = 0;
-    scenes.forEach((scene, index) => {
-        if (scene.selected) {
-            currentSceneIndex = index;
-        }
-    });
-    return currentSceneIndex;
-}
+import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
 
 function getNextSceneIndex(scenes) {
     const currentSceneIndex = getCurrentSceneIndex(scenes);

@@ -1,5 +1,5 @@
 /**
- * loadFile.js
+ * reloadFile.js
  *
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 06 Jul 2016
@@ -19,11 +19,10 @@ export default (appWindow, path) => {
     } catch (e) {
         dialog.showErrorBox(
             "SceneScreen Error",
-            `Could not read the file ${fileName} you specified – are you sure it was created ` +
-            "with SceneScreen?"
+            `Could not reload the file ${fileName} that was recently changed – ` +
+            "please check the syntax"
         );
         return;
     }
-    appWindow.webContents.send("file-open", data);
-    appWindow.setTitle(`SceneScreen – ${fileName}`);
+    appWindow.webContents.send("file-reload", data);
 };

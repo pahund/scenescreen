@@ -8,7 +8,7 @@ import { dialog } from "electron";
 import loadFile from "../loadFile";
 import updateConfig from "../config/updateConfig";
 
-export default appWindow => {
+export default (appWindow, fileWatcher) => {
     const options = {
         title: "SceneScreen: Open",
         properties: [
@@ -28,5 +28,6 @@ export default appWindow => {
 
     loadFile(appWindow, path);
     updateConfig({ path });
+    fileWatcher.path = path;
 };
 

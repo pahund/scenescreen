@@ -14,6 +14,7 @@ import navigate from "./actions/navigate";
 import sendMidi from "./actions/sendMidi";
 import "./app.global.css";
 import openFile from "./actions/openFile";
+import reloadFile from "./actions/reloadFile";
 import clockMessage from "./midi/clockMessage";
 import { STOPPED } from "./actions/changeTransportState";
 import Metronome from "./midi/metronome";
@@ -72,6 +73,7 @@ function showApp([config, outputs]) {
     const history = syncHistoryWithStore(hashHistory, store);
     window.onresize = () => store.dispatch(resize());
     ipcRenderer.on("file-open", (event, data) => store.dispatch(openFile(data)));
+    ipcRenderer.on("file-reload", (event, data) => store.dispatch(reloadFile(data)));
     ipcRenderer.on("go-to-preferences", () => store.dispatch(navigate("/preferences")));
     render(
         <Provider store={store}>

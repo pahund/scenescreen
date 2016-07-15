@@ -21,7 +21,7 @@ import test from "../sagas/test";
 export default (sagaMiddleware, store) => {
     sagaMiddleware.run(sendMidi, store.getState);
     sagaMiddleware.run(updateLayout);
-    sagaMiddleware.run(openFile);
+    sagaMiddleware.run(openFile, store.getState);
     sagaMiddleware.run(requestFileOpenDialog);
     sagaMiddleware.run(transport, store.getState);
     sagaMiddleware.run(scheduleScene, store.getState);

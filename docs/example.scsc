@@ -3,7 +3,7 @@
     {
       "name": "Scene",
       "text-color": "black",
-      "background-color": "hotpink",
+      "background-color": "white",
       "channels": {
         "1": {
           "device": "combinator",

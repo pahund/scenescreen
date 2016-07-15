@@ -5,7 +5,9 @@ import initMacMenu from "./app/electron/menu/initMacMenu";
 import initWinMenu from "./app/electron/menu/initWinMenu";
 import installExtensions from "./app/electron/installExtensions";
 import loadConfig from "./app/electron/config/loadConfig";
+import reloadFile from "./app/electron/reloadFile";
 import updateConfig from "./app/electron/config/updateConfig";
+import FileWatcher from "./app/electron/FileWatcher";
 
 if (process.env.NODE_ENV === "development") {
     require("electron-debug")(); // eslint-disable-line global-require
@@ -33,6 +35,11 @@ app.on("ready", async() => {
         x: config.x,
         y: config.y
     });
+    const fileWatcher = new FileWatcher(
+        path => reloadFile(mainWindow, path),
+        () => dialog.showErrorBox("SceneScreen Error", "Failed to reload currently open file")
+    );
+
 
     mainWindow.loadURL(`file://${__dirname}/app/app.html`);
 
@@ -68,17 +75,17 @@ app.on("ready", async() => {
     }
 
     if (process.platform === "darwin") {
-        initMacMenu(app, mainWindow);
+        initMacMenu(app, mainWindow, fileWatcher);
     } else {
-        initWinMenu(mainWindow);
+        initWinMenu(mainWindow, fileWatcher);
     }
 
     ipcMain.on("error", (event, data) => {
         dialog.showErrorBox("SceneScreen Error", data.message);
     });
 
-    ipcMain.on("open", () => open(mainWindow));
+    ipcMain.on("open", () => open(mainWindow, fileWatcher));
 
-    ipcMain.on("ready-to-rock", () => restoreLastFile(mainWindow));
+    ipcMain.on("ready-to-rock", () => restoreLastFile(mainWindow, fileWatcher));
 });
 

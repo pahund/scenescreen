@@ -7,13 +7,13 @@
 import { Menu } from "electron";
 import preferences from "./preferences";
 
-export default appWindow => {
+export default (appWindow, fileWatcher) => {
     const template = [{
         label: "&File",
         submenu: [{
             label: "&Open…",
             accelerator: "Ctrl+O",
-            click: () => open(appWindow)
+            click: () => open(appWindow, fileWatcher)
         }, {
             label: "&Close",
             accelerator: "Ctrl+W",

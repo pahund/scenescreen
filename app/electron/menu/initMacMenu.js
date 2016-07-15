@@ -8,7 +8,7 @@ import { Menu } from "electron";
 import open from "./open";
 import preferences from "./preferences";
 
-export default (app, appWindow) => {
+export default (app, appWindow, fileWatcher) => {
     const template = [{
         label: "SceneScreen",
         submenu: [{
@@ -44,7 +44,7 @@ export default (app, appWindow) => {
             label: "Open…",
             accelerator: "Command+O",
             selector: "open:",
-            click: () => open(appWindow)
+            click: () => open(appWindow, fileWatcher)
         }, {
             label: "Close",
             accelerator: "Command+W",

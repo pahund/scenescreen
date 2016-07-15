@@ -1,3 +1,10 @@
+# 0.5.0 – Autoreload
+
+## Features
+
+* When you change a file that is currently loaded, the file data is automatically reloaded,
+  so you can tweak your scene setup while the loop is running
+
 # 0.4.0 – Autopilot
 
 ## Features

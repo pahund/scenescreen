@@ -71,13 +71,13 @@ function *openFile(getState, { type, data: { scenes } }) {
             populatedScene.messages = messages;
             return populatedScene;
         });
-        if (selectedSceneIndex === undefined) {
-            selectedSceneIndex = 0;
-        }
         if (type === RELOAD_FILE) {
-            selectedSceneIndex = getCurrentSceneIndex(getState().scenes);
+            populatedScenes[getCurrentSceneIndex(getState().scenes)].selected = true;
+        } else {
+            populatedScenes[
+                selectedSceneIndex === undefined ? 0 : selectedSceneIndex
+            ].selected = true;
         }
-        scenes[selectedSceneIndex].selected = true;
 
         yield put(updateScenes(populatedScenes));
     } catch (e) {

@@ -17,5 +17,10 @@ export default mapping => (channelNumber, data) => {
             ));
         }
     }
+    Object.keys(data).forEach(key => {
+        if (key !== "device" && mapping.get(key) === undefined) {
+            throw new Error(`Unknown device parameter “${key}”`);
+        }
+    });
     return messages;
 };

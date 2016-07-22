@@ -4,23 +4,24 @@
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 01 Jul 2016
  */
-import controllerMessage, {
-    CMB_ROTARY_1,
-    CMB_ROTARY_2,
-    CMB_ROTARY_3,
-    CMB_ROTARY_4,
-    CMB_BUTTON_1,
-    CMB_BUTTON_2,
-    CMB_BUTTON_3,
-    CMB_BUTTON_4,
-    CMB_ENABLED,
-    CMB_MOD_WHEEL,
-    BUTTON_ON,
-    BUTTON_OFF,
-    ENABLED_OFF,
-    ENABLED_ON,
-    ENABLED_BYPASS
-} from "./controllerMessage";
+import controllerMessage from "./controllerMessage";
+
+const MOD_WHEEL = 0x1;
+const ENABLED = 0x9;
+const ROTARY_1 = 0x47;
+const ROTARY_2 = 0x48;
+const ROTARY_3 = 0x49;
+const ROTARY_4 = 0x4a;
+const BUTTON_1 = 0x4b;
+const BUTTON_2 = 0x4c;
+const BUTTON_3 = 0x4d;
+const BUTTON_4 = 0x4e;
+
+const BUTTON_ON = 1;
+const BUTTON_OFF = 0;
+const ENABLED_BYPASS = 2;
+const ENABLED_ON = 1;
+const ENABLED_OFF = 0;
 
 function validateButton(button) {
     if (button !== "on" && button !== "off") {
@@ -75,83 +76,83 @@ export default (channelNumber, {
     enabled, "mod-wheel": modWheel
 }) => {
     const messages = [];
-    if (rotary1) {
+    if (rotary1 !== undefined) {
         validateRotary(rotary1);
         messages.push(
-            controllerMessage(channelNumber, CMB_ROTARY_1, rotary1));
+            controllerMessage(channelNumber, ROTARY_1, rotary1));
     }
-    if (rotary2) {
+    if (rotary2 !== undefined) {
         validateRotary(rotary2);
         messages.push(
-            controllerMessage(channelNumber, CMB_ROTARY_2, rotary2));
+            controllerMessage(channelNumber, ROTARY_2, rotary2));
     }
-    if (rotary3) {
+    if (rotary3 !== undefined) {
         validateRotary(rotary3);
         messages.push(
-            controllerMessage(channelNumber, CMB_ROTARY_3, rotary3));
+            controllerMessage(channelNumber, ROTARY_3, rotary3));
     }
-    if (rotary4) {
+    if (rotary4 !== undefined) {
         validateRotary(rotary4);
         messages.push(
-            controllerMessage(channelNumber, CMB_ROTARY_4, rotary4));
+            controllerMessage(channelNumber, ROTARY_4, rotary4));
     }
-    if (button1) {
+    if (button1 !== undefined) {
         validateButton(button1);
         messages.push(
             controllerMessage(
                 channelNumber,
-                CMB_BUTTON_1,
+                BUTTON_1,
                 button1 === "on" ? BUTTON_ON : BUTTON_OFF
             )
         );
     }
-    if (button2) {
+    if (button2 !== undefined) {
         validateButton(button2);
         messages.push(
             controllerMessage(
                 channelNumber,
-                CMB_BUTTON_2,
+                BUTTON_2,
                 button2 === "on" ? BUTTON_ON : BUTTON_OFF
             )
         );
     }
-    if (button3) {
+    if (button3 !== undefined) {
         validateButton(button3);
         messages.push(
             controllerMessage(
                 channelNumber,
-                CMB_BUTTON_3,
+                BUTTON_3,
                 button3 === "on" ? BUTTON_ON : BUTTON_OFF
             )
         );
     }
-    if (button4) {
+    if (button4 !== undefined) {
         validateButton(button4);
         messages.push(
             controllerMessage(
                 channelNumber,
-                CMB_BUTTON_4,
+                BUTTON_4,
                 button4 === "on" ? BUTTON_ON : BUTTON_OFF
             )
         );
     }
-    if (enabled) {
+    if (enabled !== undefined) {
         validateEnabled(enabled);
         messages.push(
             controllerMessage(
                 channelNumber,
-                CMB_ENABLED,
+                ENABLED,
                 enabled === "on" ? ENABLED_ON :
                     enabled === "off" ? ENABLED_OFF : ENABLED_BYPASS
             )
         );
     }
-    if (modWheel) {
+    if (modWheel !== undefined) {
         validateModWheel(modWheel);
         messages.push(
             controllerMessage(
                 channelNumber,
-                CMB_MOD_WHEEL,
+                MOD_WHEEL,
                 modWheel
             )
         );

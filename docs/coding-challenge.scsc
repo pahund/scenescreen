@@ -7,15 +7,15 @@
       "selected": true,
       "channels": {
         "1": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "off"
         },
         "2": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "off"
         },
         "3": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "on",
           "rotary1": 63,
           "rotary2": 63,
@@ -35,11 +35,11 @@
       "background-color": "hotpink",
       "channels": {
         "1": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "off"
         },
         "2": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "on",
           "rotary1": 63,
           "rotary2": 63,
@@ -52,7 +52,7 @@
           "mod-wheel": 0
         },
         "3": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "on",
           "rotary1": 63,
           "rotary2": 63,
@@ -72,7 +72,7 @@
       "background-color": "gold",
       "channels": {
         "1": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "on",
           "rotary1": 63,
           "rotary2": 63,
@@ -85,7 +85,7 @@
           "mod-wheel": 0
         },
         "2": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "on",
           "rotary1": 63,
           "rotary2": 63,
@@ -98,7 +98,7 @@
           "mod-wheel": 0
         },
         "3": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "on",
           "rotary1": 63,
           "rotary2": 63,
@@ -112,6 +112,5 @@
         }
       }
     }
-
   ]
 }

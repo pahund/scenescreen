@@ -6,19 +6,19 @@
       "background-color": "white",
       "channels": {
         "1": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "rotary1": 0,
           "rotary2": 30,
           "rotary3": 100
         },
         "2": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "mod-wheel": 87,
           "button1": "on",
           "button2": "off"
         },
         "3": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "bypass"
         }
       }
@@ -29,19 +29,19 @@
       "background-color": "lime",
       "channels": {
         "1": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "rotary1": 10,
           "rotary2": 20,
           "rotary3": 0
         },
         "2": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "mod-wheel": 20,
           "button1": "off",
           "button2": "on"
         },
         "3": {
-          "device": "combinator",
+          "device": "rsn-combinator",
           "enabled": "on"
         }
       }

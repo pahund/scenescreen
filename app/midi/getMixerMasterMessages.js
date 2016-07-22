@@ -4,380 +4,366 @@
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 21 Jul 2016
  */
-import controllerMessage from "./controllerMessage";
+import fullRange from "./processors/fullRange";
+import button from "./processors/button";
+import getMessages from "./getMessages";
 
 const mapping = new Map([
     [
         "master-level", {
-            name: "master level",
+            name: "mixer master level",
             controller: 0x7,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "insert-fx-bypass", {
-            name: "insert FX bypass",
+            name: "mixer master insert FX bypass",
             controller: 0x9,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "compressor-threshold", {
-            name: "compressor threshold",
+            name: "mixer master compressor threshold",
             controller: 0xc,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "compressor-attack", {
-            name: "compressor attack",
+            name: "mixer master compressor attack",
             controller: 0xd,
             processor: processSixSteps
         }
     ],
     [
         "compressor-release", {
-            name: "compressor release",
+            name: "mixer master compressor release",
             controller: 0xe,
             processor: processMasterCompressorRelease
         }
     ],
     [
         "compressor-key", {
-            name: "compressor key",
+            name: "mixer master compressor key",
             controller: 0xf,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "compressor-ratio", {
-            name: "compressor ratio",
+            name: "mixer master compressor ratio",
             controller: 0x10,
             processor: processMasterCompressorRatio
         }
     ],
     [
         "compressor-on", {
-            name: "compressor on",
+            name: "mixer master compressor on",
             controller: 0x11,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "compressor-make-up", {
-            name: "compressor make-up",
+            name: "mixer master compressor make-up",
             controller: 0x12,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx1-pan", {
-            name: "send FX 1 pan",
+            name: "mixer master send FX 1 pan",
             controller: 0x17,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx2-pan", {
-            name: "send FX 2 pan",
+            name: "mixer master send FX 2 pan",
             controller: 0x18,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx3-pan", {
-            name: "send FX 3 pan",
+            name: "mixer master send FX 3 pan",
             controller: 0x19,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx4-pan", {
-            name: "send FX 4 pan",
+            name: "mixer master send FX 4 pan",
             controller: 0x1a,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx5-pan", {
-            name: "send FX 5 pan",
+            name: "mixer master send FX 5 pan",
             controller: 0x1b,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx6-pan", {
-            name: "send FX 6 pan",
+            name: "mixer master send FX 6 pan",
             controller: 0x1c,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx7-pan", {
-            name: "send FX 7 pan",
+            name: "mixer master send FX 7 pan",
             controller: 0x1d,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx8-pan", {
-            name: "send FX 8 pan",
+            name: "mixer master send FX 8 pan",
             controller: 0x1e,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx1-send-level", {
-            name: "send FX 1 send level",
+            name: "mixer master send FX 1 send level",
             controller: 0x27,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx2-send-level", {
-            name: "send FX 2 send level",
+            name: "mixer master send FX 2 send level",
             controller: 0x28,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx3-send-level", {
-            name: "send FX 3 send level",
+            name: "mixer master send FX 3 send level",
             controller: 0x29,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx4-send-level", {
-            name: "send FX 4 send level",
+            name: "mixer master send FX 4 send level",
             controller: 0x2a,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx5-send-level", {
-            name: "send FX 5 send level",
+            name: "mixer master send FX 5 send level",
             controller: 0x2b,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx6-send-level", {
-            name: "send FX 6 send level",
+            name: "mixer master send FX 6 send level",
             controller: 0x2c,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx7-send-level", {
-            name: "send FX 7 send level",
+            name: "mixer master send FX 7 send level",
             controller: 0x2d,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx8-send-level", {
-            name: "send FX 8 send level",
+            name: "mixer master send FX 8 send level",
             controller: 0x2e,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx1-return-level", {
-            name: "send FX 1 return level",
+            name: "mixer master send FX 1 return level",
             controller: 0x2f,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx2-return-level", {
-            name: "send FX 2 return level",
+            name: "mixer master send FX 2 return level",
             controller: 0x30,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx3-return-level", {
-            name: "send FX 3 return level",
+            name: "mixer master send FX 3 return level",
             controller: 0x31,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx4-return-level", {
-            name: "send FX 4 return level",
+            name: "mixer master send FX 4 return level",
             controller: 0x32,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx5-return-level", {
-            name: "send FX 5 return level",
+            name: "mixer master send FX 5 return level",
             controller: 0x33,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx6-return-level", {
-            name: "send FX 6 return level",
+            name: "mixer master send FX 6 return level",
             controller: 0x34,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx7-return-level", {
-            name: "send FX 7 return level",
+            name: "mixer master send FX 7 return level",
             controller: 0x35,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "send-fx8-return-level", {
-            name: "send FX 8 return level",
+            name: "mixer master send FX 8 return level",
             controller: 0x36,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "insert-fx-rotary1", {
-            name: "insert FX rotary 1",
+            name: "mixer master insert FX rotary 1",
             controller: 0x47,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "insert-fx-rotary2", {
-            name: "insert FX rotary 2",
+            name: "mixer master insert FX rotary 2",
             controller: 0x48,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "insert-fx-rotary3", {
-            name: "insert FX rotary 3",
+            name: "mixer master insert FX rotary 3",
             controller: 0x49,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "insert-fx-rotary4", {
-            name: "insert FX rotary 4",
+            name: "mixer master insert FX rotary 4",
             controller: 0x4a,
-            processor: processFullRange
+            processor: fullRange
         }
     ],
     [
         "insert-fx-button1", {
-            name: "insert FX button 1",
+            name: "mixer master insert FX button 1",
             controller: 0x4b,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "insert-fx-button2", {
-            name: "insert FX button 2",
+            name: "mixer master insert FX button 2",
             controller: 0x4c,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "insert-fx-button3", {
-            name: "insert FX button 3",
+            name: "mixer master insert FX button 3",
             controller: 0x4d,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "insert-fx-button4", {
-            name: "insert FX button 4",
+            name: "mixer master insert FX button 4",
             controller: 0x4e,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "send-fx1-mute", {
-            name: "send FX 1 mute",
+            name: "mixer master send FX 1 mute",
             controller: 0x66,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "send-fx2-mute", {
-            name: "send FX 2 mute",
+            name: "mixer master send FX 2 mute",
             controller: 0x67,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "send-fx3-mute", {
-            name: "send FX 3 mute",
+            name: "mixer master send FX 3 mute",
             controller: 0x68,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "send-fx4-mute", {
-            name: "send FX 4 mute",
+            name: "mixer master send FX 4 mute",
             controller: 0x69,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "send-fx5-mute", {
-            name: "send FX 5 mute",
+            name: "mixer master send FX 5 mute",
             controller: 0x6a,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "send-fx6-mute", {
-            name: "send FX 6 mute",
+            name: "mixer master send FX 6 mute",
             controller: 0x6b,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "send-fx7-mute", {
-            name: "send FX 7 mute",
+            name: "mixer master send FX 7 mute",
             controller: 0x6c,
-            processor: processButton
+            processor: button
         }
     ],
     [
         "send-fx8-mute", {
-            name: "send FX 8 mute",
+            name: "mixer master send FX 8 mute",
             controller: 0x6d,
-            processor: processButton
+            processor: button
         }
     ]
 ]);
 
-function processFullRange(value, name) {
-    if (typeof value !== "number") {
-        throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”, ` +
-            "it must be a number"
-        );
-    }
-    if (value < 0 || value > 127) {
-        throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”, ` +
-            "it must be a number from 0 to 127"
-        );
-    }
-    return value;
-}
-
 function processSixSteps(value, name) {
     if (typeof value !== "number") {
         throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”, ` +
+            `“${value}” is not valid for control “${name}”, ` +
             "it must be a number"
         );
     }
     if (value < 0 || value > 5) {
         throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”, ` +
+            `“${value}” is not valid for control “${name}”, ` +
             "it must be a number from 0 to 5"
         );
     }
@@ -387,7 +373,7 @@ function processSixSteps(value, name) {
 function processMasterCompressorRelease(value, name) {
     if (typeof value !== "number" && value !== "auto") {
         throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”, ` +
+            `“${value}” is not valid for control “${name}”, ` +
             "it must be a number"
         );
     }
@@ -396,7 +382,7 @@ function processMasterCompressorRelease(value, name) {
     }
     if (value < 0 || value > 3) {
         throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”, ` +
+            `“${value}” is not valid for control “${name}”, ` +
             "it must be a number from 0 to 3 or “auto”"
         );
     }
@@ -406,39 +392,17 @@ function processMasterCompressorRelease(value, name) {
 function processMasterCompressorRatio(value, name) {
     if (typeof value !== "number") {
         throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”, ` +
+            `“${value}” is not valid for control “${name}”, ` +
             "it must be a number"
         );
     }
     if (value !== 2 && value !== 4 && value !== 10) {
         throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”, ` +
+            `“${value}” is not valid for control “${name}”, ` +
             "it must be 2, 4 or 10"
         );
     }
     return value === 2 ? 0 : value === 4 ? 1 : 10;
 }
 
-function processButton(value, name) {
-    if (value !== "on" && value !== "off") {
-        throw new Error(
-            `“${value}” is not valid for mixer master control “${name}”. ` +
-            "Valid are: “on” or “off”"
-        );
-    }
-    return value === "on" ? 1 : 0;
-}
-
-export default (channelNumber, data) => {
-    const messages = [];
-    for (const [key, value] of mapping) {
-        if (data[key] !== undefined) {
-            messages.push(controllerMessage(
-                channelNumber,
-                value.controller,
-                value.processor(data[key], value.name)
-            ));
-        }
-    }
-    return messages;
-};
+export default getMessages(mapping);

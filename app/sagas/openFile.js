@@ -8,8 +8,9 @@ import { takeLatest } from "redux-saga";
 import { put } from "redux-saga/effects";
 import { OPEN_FILE, RELOAD_FILE } from "../actions";
 import updateScenes from "../actions/updateScenes";
-import combinatorMessages from "../midi/messageConverters/combinatorMessages";
-import mixerMasterMessages from "../midi/messageConverters/mixerMasterMessages";
+import combinator from "../midi/messageConverters/combinator";
+import mixerMasterSection from "../midi/messageConverters/mixerMasterSection";
+import mixerChannelStrip from "../midi/messageConverters/mixerChannelStrip";
 import { ipcRenderer } from "electron";
 import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
 
@@ -52,9 +53,9 @@ function *openFile(getState, { type, data: { scenes } }) {
                     );
                 }
                 switch (channel.device) {
-                    case "rsn-mixer-master":
+                    case "rsn-mixer-master-section":
                         try {
-                            messages.push(...mixerMasterMessages(channelNumber, channel));
+                            messages.push(...mixerMasterSection(channelNumber, channel));
                         } catch (e) {
                             throw new Error(
                                 "Could not create controller message for Reason mixer master " +
@@ -65,11 +66,22 @@ function *openFile(getState, { type, data: { scenes } }) {
                         break;
                     case "rsn-combinator":
                         try {
-                            messages.push(...combinatorMessages(channelNumber, channel));
+                            messages.push(...combinator(channelNumber, channel));
                         } catch (e) {
                             throw new Error(
                                 "Could not create controller message for Combinator device, " +
                                 "MIDI channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    case "rsn-mixer-channel-strip":
+                        try {
+                            messages.push(...mixerChannelStrip(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for mixer " +
+                                "channel strip device, MIDI channel " +
                                 `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
                             );
                         }

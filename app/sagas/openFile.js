@@ -8,8 +8,8 @@ import { takeLatest } from "redux-saga";
 import { put } from "redux-saga/effects";
 import { OPEN_FILE, RELOAD_FILE } from "../actions";
 import updateScenes from "../actions/updateScenes";
-import getCombinatorMessages from "../midi/getCombinatorMessages";
-import getMixerMasterMessages from "../midi/getMixerMasterMessages";
+import combinatorMessages from "../midi/messageConverters/combinatorMessages";
+import mixerMasterMessages from "../midi/messageConverters/mixerMasterMessages";
 import { ipcRenderer } from "electron";
 import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
 
@@ -54,7 +54,7 @@ function *openFile(getState, { type, data: { scenes } }) {
                 switch (channel.device) {
                     case "rsn-mixer-master":
                         try {
-                            messages.push(...getMixerMasterMessages(channelNumber, channel));
+                            messages.push(...mixerMasterMessages(channelNumber, channel));
                         } catch (e) {
                             throw new Error(
                                 "Could not create controller message for Reason mixer master " +
@@ -65,7 +65,7 @@ function *openFile(getState, { type, data: { scenes } }) {
                         break;
                     case "rsn-combinator":
                         try {
-                            messages.push(...getCombinatorMessages(channelNumber, channel));
+                            messages.push(...combinatorMessages(channelNumber, channel));
                         } catch (e) {
                             throw new Error(
                                 "Could not create controller message for Combinator device, " +

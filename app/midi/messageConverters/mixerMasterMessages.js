@@ -1,12 +1,12 @@
 /**
- * getMixerMasterMessages.js
+ * mixerMasterMessages.js
  *
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 21 Jul 2016
  */
 import fullRange from "./processors/fullRange";
 import button from "./processors/button";
-import getMessages from "./getMessages";
+import messages from "./messages";
 
 const mapping = new Map([
     [
@@ -405,4 +405,4 @@ function processMasterCompressorRatio(value, name) {
     return value === 2 ? 0 : value === 4 ? 1 : 10;
 }
 
-export default getMessages(mapping);
+export default messages(mapping);

@@ -1,5 +1,5 @@
 /**
- * getCombinatorMessages.js
+ * combinatorMessages.js
  *
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 01 Jul 2016
@@ -7,7 +7,7 @@
 import fullRange from "./processors/fullRange";
 import enabled from "./processors/enabled";
 import button from "./processors/button";
-import getMessages from "./getMessages";
+import messages from "./messages";
 
 const mapping = new Map([
     [
@@ -82,4 +82,4 @@ const mapping = new Map([
     ]
 ]);
 
-export default getMessages(mapping);
+export default messages(mapping);

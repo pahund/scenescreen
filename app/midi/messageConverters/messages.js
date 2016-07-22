@@ -1,10 +1,10 @@
 /**
- * getMessages.js
+ * messages.js
  *
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 22 Jul 2016
  */
-import controllerMessage from "./controllerMessage";
+import controllerMessage from "../controllerMessage";
 
 export default mapping => (channelNumber, data) => {
     const messages = [];

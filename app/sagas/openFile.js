@@ -12,6 +12,7 @@ import combinator from "../midi/messageConverters/combinator";
 import mixerMasterSection from "../midi/messageConverters/mixerMasterSection";
 import mixerChannelStrip from "../midi/messageConverters/mixerChannelStrip";
 import mixer142 from "../midi/messageConverters/mixer142";
+import lineMixer from "../midi/messageConverters/lineMixer";
 import { ipcRenderer } from "electron";
 import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
 
@@ -94,6 +95,17 @@ function *openFile(getState, { type, data: { scenes } }) {
                             throw new Error(
                                 "Could not create controller message for mixer " +
                                 "14:2 device, MIDI channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    case "rsn-line-mixer":
+                        try {
+                            messages.push(...lineMixer(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for line mixer " +
+                                "device, MIDI channel " +
                                 `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
                             );
                         }

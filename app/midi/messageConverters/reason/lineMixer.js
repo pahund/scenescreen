@@ -4,8 +4,8 @@
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 23 Jul 2016
  */
-import fullRange from "./processors/fullRange";
-import messages from "./messages";
+import fullRange from "../processors/fullRange";
+import messages from "../messages";
 
 const mapping = new Map([
     [

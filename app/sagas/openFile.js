@@ -14,6 +14,7 @@ import mixerChannelStrip from "../midi/messageConverters/mixerChannelStrip";
 import mixer142 from "../midi/messageConverters/mixer142";
 import lineMixer from "../midi/messageConverters/lineMixer";
 import id8 from "../midi/messageConverters/id8";
+import neptune from "../midi/messageConverters/neptune";
 import { ipcRenderer } from "electron";
 import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
 
@@ -117,6 +118,17 @@ function *openFile(getState, { type, data: { scenes } }) {
                         } catch (e) {
                             throw new Error(
                                 "Could not create controller message for ID8 " +
+                                "device, MIDI channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    case "rsn-neptune":
+                        try {
+                            messages.push(...neptune(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for Neptune " +
                                 "device, MIDI channel " +
                                 `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
                             );

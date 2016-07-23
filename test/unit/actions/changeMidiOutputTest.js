@@ -7,8 +7,8 @@
  * @since 11 Jul 2016
  */
 import { should } from "chai";
-import { CHANGE_MIDI_OUTPUT } from "../../app/actions";
-import changeMidiOutput from "../../app/actions/changeMidiOutput";
+import { CHANGE_MIDI_OUTPUT } from "../../../app/actions";
+import changeMidiOutput from "../../../app/actions/changeMidiOutput";
 
 should();
 

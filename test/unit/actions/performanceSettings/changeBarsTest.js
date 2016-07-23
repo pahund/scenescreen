@@ -7,8 +7,8 @@
  * @since 11 Jul 2016
  */
 import { should } from "chai";
-import { CHANGE_BARS } from "../../../app/actions";
-import changeBars from "../../../app/actions/performanceSettings/changeBars";
+import { CHANGE_BARS } from "../../../../app/actions";
+import changeBars from "../../../../app/actions/performanceSettings/changeBars";
 
 should();
 

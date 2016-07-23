@@ -11,6 +11,7 @@ import updateScenes from "../actions/updateScenes";
 import combinator from "../midi/messageConverters/combinator";
 import mixerMasterSection from "../midi/messageConverters/mixerMasterSection";
 import mixerChannelStrip from "../midi/messageConverters/mixerChannelStrip";
+import mixer142 from "../midi/messageConverters/mixer142";
 import { ipcRenderer } from "electron";
 import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
 
@@ -82,6 +83,17 @@ function *openFile(getState, { type, data: { scenes } }) {
                             throw new Error(
                                 "Could not create controller message for mixer " +
                                 "channel strip device, MIDI channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    case "rsn-mixer142":
+                        try {
+                            messages.push(...mixer142(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for mixer " +
+                                "14:2 device, MIDI channel " +
                                 `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
                             );
                         }

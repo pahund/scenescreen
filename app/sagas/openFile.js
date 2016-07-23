@@ -13,6 +13,7 @@ import mixerMasterSection from "../midi/messageConverters/mixerMasterSection";
 import mixerChannelStrip from "../midi/messageConverters/mixerChannelStrip";
 import mixer142 from "../midi/messageConverters/mixer142";
 import lineMixer from "../midi/messageConverters/lineMixer";
+import id8 from "../midi/messageConverters/id8";
 import { ipcRenderer } from "electron";
 import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
 
@@ -105,6 +106,17 @@ function *openFile(getState, { type, data: { scenes } }) {
                         } catch (e) {
                             throw new Error(
                                 "Could not create controller message for line mixer " +
+                                "device, MIDI channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    case "rsn-id8":
+                        try {
+                            messages.push(...id8(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for ID8 " +
                                 "device, MIDI channel " +
                                 `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
                             );

@@ -47,35 +47,35 @@ const mapping = new Map([
     ],
     [
         "lo-cut-on", {
-            name: "MClass Equalizer lo cut on",
+            name: "MClass Equalizer lo cut on/off",
             controller: 0x10,
             processor: button
         }
     ],
     [
         "lo-shelf-on", {
-            name: "MClass Equalizer lo shelf on",
+            name: "MClass Equalizer lo shelf on/off",
             controller: 0x11,
             processor: button
         }
     ],
     [
         "param1-on", {
-            name: "MClass Equalizer param 1 on",
+            name: "MClass Equalizer param 1 on/off",
             controller: 0x12,
             processor: button
         }
     ],
     [
         "param2-on", {
-            name: "MClass Equalizer param 2 on",
+            name: "MClass Equalizer param 2 on/off",
             controller: 0x13,
             processor: button
         }
     ],
     [
         "hi-shelf-on", {
-            name: "MClass Equalizer hi shelf on",
+            name: "MClass Equalizer hi shelf on/off",
             controller: 0x14,
             processor: button
         }

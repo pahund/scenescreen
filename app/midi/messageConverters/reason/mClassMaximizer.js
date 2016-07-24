@@ -62,7 +62,7 @@ const mapping = new Map([
     ],
     [
         "soft-clip-on", {
-            name: "MClass Maximizer soft clip on",
+            name: "MClass Maximizer soft clip on/off",
             controller: 0x11,
             processor: button
         }

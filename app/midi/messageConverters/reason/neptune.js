@@ -34,7 +34,7 @@ const mapping = new Map([
     ],
     [
         "pitch-adjust-on", {
-            name: "Neptune pitch adjust on",
+            name: "Neptune pitch adjust on/off",
             controller: 0xc,
             processor: button
         }
@@ -62,7 +62,7 @@ const mapping = new Map([
     ],
     [
         "transpose-on", {
-            name: "Neptune transpose on",
+            name: "Neptune transpose on/off",
             controller: 0x10,
             processor: button
         }
@@ -83,7 +83,7 @@ const mapping = new Map([
     ],
     [
         "formant-on", {
-            name: "Neptune formant on",
+            name: "Neptune formant on/off",
             controller: 0x13,
             processor: button
         }

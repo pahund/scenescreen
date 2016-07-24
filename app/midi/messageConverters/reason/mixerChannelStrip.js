@@ -46,7 +46,7 @@ const mapping = new Map([
     ],
     [
         "send-fx1-on", {
-            name: "mixer channel strip send FX 1 on",
+            name: "mixer channel strip send FX 1 on/off",
             controller: 0xe,
             processor: button
         }
@@ -67,7 +67,7 @@ const mapping = new Map([
     ],
     [
         "send-fx2-on", {
-            name: "mixer channel strip send FX 2 on",
+            name: "mixer channel strip send FX 2 on/off",
             controller: 0x11,
             processor: button
         }
@@ -88,7 +88,7 @@ const mapping = new Map([
     ],
     [
         "send-fx3-on", {
-            name: "mixer channel strip send FX 3 on",
+            name: "mixer channel strip send FX 3 on/off",
             controller: 0x14,
             processor: button
         }
@@ -109,7 +109,7 @@ const mapping = new Map([
     ],
     [
         "send-fx4-on", {
-            name: "mixer channel strip send FX 4 on",
+            name: "mixer channel strip send FX 4 on/off",
             controller: 0x17,
             processor: button
         }
@@ -130,7 +130,7 @@ const mapping = new Map([
     ],
     [
         "send-fx5-on", {
-            name: "mixer channel strip send FX 5 on",
+            name: "mixer channel strip send FX 5 on/off",
             controller: 0x1a,
             processor: button
         }
@@ -151,7 +151,7 @@ const mapping = new Map([
     ],
     [
         "send-fx6-on", {
-            name: "mixer channel strip send FX 6 on",
+            name: "mixer channel strip send FX 6 on/off",
             controller: 0x1d,
             processor: button
         }
@@ -172,7 +172,7 @@ const mapping = new Map([
     ],
     [
         "send-fx7-on", {
-            name: "mixer channel strip send FX 7 on",
+            name: "mixer channel strip send FX 7 on/off",
             controller: 0x27,
             processor: button
         }
@@ -193,7 +193,7 @@ const mapping = new Map([
     ],
     [
         "send-fx8-on", {
-            name: "mixer channel strip send FX 8 on",
+            name: "mixer channel strip send FX 8 on/off",
             controller: 0x2a,
             processor: button
         }
@@ -214,7 +214,7 @@ const mapping = new Map([
     ],
     [
         "compressor-on", {
-            name: "mixer channel strip compressor on",
+            name: "mixer channel strip compressor on/off",
             controller: 0x2e,
             processor: button
         }
@@ -256,7 +256,7 @@ const mapping = new Map([
     ],
     [
         "gate-on", {
-            name: "mixer channel strip gate on",
+            name: "mixer channel strip gate on/off",
             controller: 0x35,
             processor: button
         }
@@ -382,7 +382,7 @@ const mapping = new Map([
     ],
     [
         "eq-on", {
-            name: "mixer channel strip EQ on",
+            name: "mixer channel strip EQ on/off",
             controller: 0x50,
             processor: button
         }
@@ -473,7 +473,7 @@ const mapping = new Map([
     ],
     [
         "lpf-on", {
-            name: "mixer channel strip LPF on",
+            name: "mixer channel strip LPF on/off",
             controller: 0x66,
             processor: button
         }
@@ -487,7 +487,7 @@ const mapping = new Map([
     ],
     [
         "hpf-on", {
-            name: "mixer channel strip HPF on",
+            name: "mixer channel strip HPF on/off",
             controller: 0x68,
             processor: button
         }

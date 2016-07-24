@@ -60,7 +60,7 @@ const mapping = new Map([
     ],
     [
         "compressor-on", {
-            name: "mixer master section compressor on",
+            name: "mixer master section compressor on/off",
             controller: 0x11,
             processor: button
         }

@@ -11,19 +11,7 @@ import { ipcRenderer } from "electron";
 import { OPEN_FILE, RELOAD_FILE } from "../actions";
 import updateScenes from "../actions/updateScenes";
 import getCurrentSceneIndex from "../utils/getCurrentSceneIndex";
-
-import combinator from "../midi/messageConverters/reason/combinator";
-import mixerMasterSection from "../midi/messageConverters/reason/mixerMasterSection";
-import mixerChannelStrip from "../midi/messageConverters/reason/mixerChannelStrip";
-import mixer142 from "../midi/messageConverters/reason/mixer142";
-import lineMixer from "../midi/messageConverters/reason/lineMixer";
-import id8 from "../midi/messageConverters/reason/id8";
-import neptune from "../midi/messageConverters/reason/neptune";
-import mClassEqualizer from "../midi/messageConverters/reason/mClassEqualizer";
-import mClassStereoImager from "../midi/messageConverters/reason/mClassStereoImager";
-import mClassCompressor from "../midi/messageConverters/reason/mClassCompressor";
-import mClassMaximizer from "../midi/messageConverters/reason/mClassMaximizer";
-import audiomatic from "../midi/messageConverters/reason/audiomatic";
+import devices from "../midi/messageConverters/devices";
 
 function *openFile(getState, { type, data: { scenes } }) {
     let selectedSceneIndex;
@@ -63,144 +51,14 @@ function *openFile(getState, { type, data: { scenes } }) {
                         `scene “${populatedScene.name}”`
                     );
                 }
-                switch (channel.device) {
-                    case "rsn-mixer-master-section":
-                        try {
-                            messages.push(...mixerMasterSection(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for Reason mixer master " +
-                                "section, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-combinator":
-                        try {
-                            messages.push(...combinator(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for Combinator device, " +
-                                "MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-mixer-channel-strip":
-                        try {
-                            messages.push(...mixerChannelStrip(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for mixer " +
-                                "channel strip device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-mixer142":
-                        try {
-                            messages.push(...mixer142(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for mixer " +
-                                "14:2 device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-line-mixer":
-                        try {
-                            messages.push(...lineMixer(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for line mixer " +
-                                "device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-id8":
-                        try {
-                            messages.push(...id8(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for ID8 " +
-                                "device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-neptune":
-                        try {
-                            messages.push(...neptune(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for Neptune " +
-                                "device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-mclass-equalizer":
-                        try {
-                            messages.push(...mClassEqualizer(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for MClass " +
-                                "Equalizer device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-mclass-stereo-imager":
-                        try {
-                            messages.push(...mClassStereoImager(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for MClass " +
-                                "Stereo Imager device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-mclass-compressor":
-                        try {
-                            messages.push(...mClassCompressor(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for MClass " +
-                                "Compressor device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-mclass-maximizer":
-                        try {
-                            messages.push(...mClassMaximizer(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for MClass " +
-                                "Maximizer device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    case "rsn-audiomatic":
-                        try {
-                            messages.push(...audiomatic(channelNumber, channel));
-                        } catch (e) {
-                            throw new Error(
-                                "Could not create controller message for Audiomatic " +
-                                "device, MIDI channel " +
-                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
-                            );
-                        }
-                        break;
-                    default:
-                        throw new Error(
-                            `Unknown device “${channel.device}” specified ` +
-                            `for channel ${channelNumber} in scene “${populatedScene.name}”`
-                        );
+                const device = devices.get(channel.device);
+                try {
+                    messages.push(...device.converter(channelNumber, channel));
+                } catch (e) {
+                    throw new Error(
+                        `Could not create controller message for ${device.name}, MIDI channel ` +
+                        `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                    );
                 }
             });
             populatedScene.messages = messages;

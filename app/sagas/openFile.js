@@ -20,6 +20,7 @@ import lineMixer from "../midi/messageConverters/reason/lineMixer";
 import id8 from "../midi/messageConverters/reason/id8";
 import neptune from "../midi/messageConverters/reason/neptune";
 import mClassEqualizer from "../midi/messageConverters/reason/mClassEqualizer";
+import mClassStereoImager from "../midi/messageConverters/reason/mClassStereoImager";
 
 function *openFile(getState, { type, data: { scenes } }) {
     let selectedSceneIndex;
@@ -144,6 +145,17 @@ function *openFile(getState, { type, data: { scenes } }) {
                             throw new Error(
                                 "Could not create controller message for MClass " +
                                 "Equalizer device, MIDI channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    case "rsn-mclass-stereo-imager":
+                        try {
+                            messages.push(...mClassStereoImager(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for MClass " +
+                                "Stereo Imager device, MIDI channel " +
                                 `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
                             );
                         }

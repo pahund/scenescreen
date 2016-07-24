@@ -22,6 +22,8 @@ import neptune from "../midi/messageConverters/reason/neptune";
 import mClassEqualizer from "../midi/messageConverters/reason/mClassEqualizer";
 import mClassStereoImager from "../midi/messageConverters/reason/mClassStereoImager";
 import mClassCompressor from "../midi/messageConverters/reason/mClassCompressor";
+import mClassMaximizer from "../midi/messageConverters/reason/mClassMaximizer";
+import audiomatic from "../midi/messageConverters/reason/audiomatic";
 
 function *openFile(getState, { type, data: { scenes } }) {
     let selectedSceneIndex;
@@ -168,6 +170,28 @@ function *openFile(getState, { type, data: { scenes } }) {
                             throw new Error(
                                 "Could not create controller message for MClass " +
                                 "Compressor device, MIDI channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    case "rsn-mclass-maximizer":
+                        try {
+                            messages.push(...mClassMaximizer(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for MClass " +
+                                "Maximizer device, MIDI channel " +
+                                `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
+                            );
+                        }
+                        break;
+                    case "rsn-audiomatic":
+                        try {
+                            messages.push(...audiomatic(channelNumber, channel));
+                        } catch (e) {
+                            throw new Error(
+                                "Could not create controller message for Audiomatic " +
+                                "device, MIDI channel " +
                                 `${channelNumber} in scene “${populatedScene.name}” – ${e.message}`
                             );
                         }

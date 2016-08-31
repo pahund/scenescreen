@@ -4,7 +4,7 @@
  * @author <a href="https://github.com/pahund">Patrick Hund</a>
  * @since 23 Jul 2016
  */
-export default (from, to) => (value, name) => {
+export default (from, to, max = 127) => (value, name) => {
     if (typeof value !== "number") {
         throw new Error(
             `“${value}” is not valid for control “${name}”, ` +
@@ -17,5 +17,5 @@ export default (from, to) => (value, name) => {
             `it must be a number from ${from} to ${to}`
         );
     }
-    return Math.round(127 / (to - from) * (value + (from * -1)));
+    return Math.round(max / (to - from) * (value + (from * -1)));
 };

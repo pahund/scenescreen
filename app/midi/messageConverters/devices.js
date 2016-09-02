@@ -255,7 +255,7 @@ export default new Map([
         }
     ],
     [
-        "rsn-the-echo", {
+        "rsn-theecho", {
             name: "Reason The Echo",
             converter: theEcho
         }

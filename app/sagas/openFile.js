@@ -52,6 +52,12 @@ function *openFile(getState, { type, data: { scenes } }) {
                     );
                 }
                 const device = devices.get(channel.device);
+                if (!device) {
+                    throw new Error(
+                        `Unknown device ${channel.device} specified for channel ` +
+                        `${channelNumber} in scene ${populatedScene.name}`
+                    );
+                }
                 try {
                     messages.push(...device.converter(channelNumber, channel));
                 } catch (e) {

@@ -8,7 +8,7 @@ import { takeEvery } from "redux-saga";
 import { SEND_MIDI } from "../actions";
 import { PLAYING } from "../actions/changeTransportState";
 
-function *sendMidi(getState, { messages, scheduled }) {
+export function *sendMidi(getState, { messages, scheduled }) {
     const { midi: { outputs, selectedOutput }, transport: { metronome, state } } = getState();
     const midiOutput = outputs.get(selectedOutput);
     if (state === PLAYING && scheduled) {

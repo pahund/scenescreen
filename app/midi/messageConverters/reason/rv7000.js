@@ -6,6 +6,8 @@
  */
 import enabled from "../processors/enabled";
 import messages from "../messages";
+import range from "../processors/range";
+import fullRange from "../processors/fullRange";
 
 const mapping = new Map([
     [
@@ -13,6 +15,20 @@ const mapping = new Map([
             name: "RV7000 enabled",
             controller: 0x9,
             processor: enabled
+        }
+    ],
+    [
+        "hi-eq", {
+            name: "RV7000 hi EQ",
+            controller: 0xc,
+            processor: range(-64, 63)
+        }
+    ],
+    [
+        "hf-damp", {
+            name: "RV7000 HF damp",
+            controller: 0xd,
+            processor: fullRange
         }
     ]
 ]);
